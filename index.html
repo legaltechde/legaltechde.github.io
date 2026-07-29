@@ -402,23 +402,13 @@ body {
     <div id="proj-grid">
       <div class="proj-item"
            data-img=""
-           data-title-de="Legal-Tech Dokumenten-Konverter"
-           data-title-en="Legal-Tech Document Converter"
-           data-title-ru="Конвертер юридических документов"
-           data-desc-de="Web-App zur Konvertierung juristischer Altdokumente. HTML/CSS/JS, DSGVO-konform."
-           data-desc-en="Web app converting legacy legal documents to modern formats. GDPR-compliant."
-           data-desc-ru="Веб-приложение для конвертации юридических документов. Соответствует GDPR."
-           data-url="mailto:legaltechde@mail.de">
-      </div>
-      <div class="proj-item"
-           data-img=""
-           data-title-de="KI-Prompt-Paket für Kanzleien"
-           data-title-en="AI Prompt Kit for Law Firms"
-           data-title-ru="Пакет AI-промптов для юридических фирм"
-           data-desc-de="DSGVO-sichere GPT/Claude-Prompts für Schriftsätze, Recherche und Zusammenfassungen."
-           data-desc-en="GDPR-safe GPT/Claude prompts for briefs, research and summaries."
-           data-desc-ru="GDPR-совместимые промпты GPT/Claude для документов, исследований и резюме."
-           data-url="mailto:legaltechde@mail.de">
+           data-title-de="PDFandPrompt - OCR Tool"
+           data-title-en="PDFandPrompt - OCR Tool"
+           data-title-ru="PDFandPrompt - OCR Tool"
+           data-desc-de="Das Tool erlaubt PDF über den Browser auszulesen (OCR), lokal und im Anschluss Prompts mit relevantem Inhalt zu erstellen. Unterstützt 20+ Sprachen."
+           data-desc-en="Browser-based OCR tool to extract PDF content locally and create prompts with relevant content. Supports 20+ languages."
+           data-desc-ru="Инструмент для извлечения текста из PDF прямо в браузере (OCR) локально и создания промптов с релевантным содержимым. Поддержка 20+ языков."
+           data-url="https://legaltechde.github.io/pdfandprompt/#">
       </div>
     </div>
   </div>
@@ -929,7 +919,13 @@ function buildProjCard(item) {
   card.dataset.proj = '1';
   Object.assign(card.dataset, item.dataset);
   card.title = title + ' ' + t('proj.clickHint');
-  card.onclick = () => window.location.href = url;
+  card.onclick = () => {
+    if (url.startsWith('mailto:')) {
+      window.location.href = url;
+    } else {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  };
   const iconWrap = document.createElement('div');
   iconWrap.className = 'proj-icon-wrap';
   if (img) {
@@ -949,6 +945,10 @@ function buildProjCard(item) {
   const descEl  = document.createElement('div'); descEl.className  = 'proj-desc';  descEl.textContent  = desc;  card.appendChild(descEl);
   const linkEl = document.createElement('a');
   linkEl.className = 'proj-link'; linkEl.href = url;
+  if (!url.startsWith('mailto:')) {
+    linkEl.target = '_blank';
+    linkEl.rel = 'noopener noreferrer';
+  }
   linkEl.textContent = url.startsWith('mailto:') ? url.replace('mailto:','') : (url.length>35?url.slice(0,34)+'…':url);
   linkEl.onclick = e => e.stopPropagation();
   card.appendChild(linkEl);
