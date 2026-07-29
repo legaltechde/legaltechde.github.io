@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moritz Scholz – legaltechde</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background-color: #3A6EA5;
+  background-image: radial-gradient(ellipse at 30% 20%, #5b8ec4 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, #2a5a9a 0%, transparent 50%);
+  min-height: 100vh;
+  font-family: Tahoma, Arial, Verdana, sans-serif;
+  font-size: 13px; color: #000;
+  padding: 24px 16px 48px;
+}
+#taskbar {
+  position: fixed; bottom: 0; left: 0; right: 0; height: 30px;
+  background: linear-gradient(to bottom, #1f5ba6 0%, #3a8be8 4%, #2b6fcd 6%, #2464c0 50%, #1a56b0 95%, #0e3d8c 100%);
+  border-top: 1px solid #0b3d8a;
+  display: flex; align-items: center; padding: 0 6px;
+  z-index: 9999; box-shadow: 0 -1px 3px rgba(0,0,0,0.5);
+}
+#start-btn {
+  background: linear-gradient(to bottom, #5db33d 0%, #3d9c1e 50%, #2f8010 100%);
+  border: 1px solid #1e6005; border-radius: 10px; color: #fff;
+  font-family: Tahoma, Arial, sans-serif; font-size: 13px; font-weight: bold;
+  padding: 2px 12px 2px 8px; cursor: pointer;
+  display: flex; align-items: center; gap: 4px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4); user-select: none;
+}
+#tb-windows { display:flex; gap:3px; flex:1; padding:0 6px; overflow:hidden; }
+.tb-win-btn {
+  background: linear-gradient(to bottom, #3a7fdb 0%, #1a56b0 100%);
+  border: 1px solid #0a3060; border-radius: 3px; color: #fff;
+  font-size: 11px; font-family: Tahoma, Arial, sans-serif;
+  padding: 2px 8px; cursor: pointer; max-width: 100px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+  display: flex; align-items: center; gap: 4px;
+}
+.tb-win-btn:hover { filter: brightness(1.2); }
+.tb-win-btn.closed { background: linear-gradient(to bottom, #555 0%, #333 100%); border-color: #222; opacity: 0.8; }
+#lang-btn {
+  background: rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 2px;
+  color: #fff; font-size: 11px; font-weight: bold; font-family: Tahoma, Arial, sans-serif;
+  padding: 2px 7px; cursor: pointer; display: flex; align-items: center; gap: 4px;
+  margin-right: 4px; white-space: nowrap;
+}
+#lang-btn:hover { background: rgba(255,255,255,0.2); }
+#clock { color: #fff; font-size: 12px; background: rgba(0,0,0,0.15); padding: 2px 8px; border: 1px solid rgba(255,255,255,0.2); border-radius: 2px; }
+#lang-menu {
+  display: none; position: fixed; bottom: 34px; right: 44px;
+  background: #ECE9D8; border: 2px solid #0054E3; border-radius: 4px 4px 0 0;
+  box-shadow: -2px -2px 8px rgba(0,0,0,0.4); z-index: 10001; min-width: 185px;
+  font-family: Tahoma, Arial, sans-serif;
+}
+#lang-menu.open { display: block; }
+.lang-menu-title {
+  background: linear-gradient(to right, #0054E3 0%, #2882E4 60%, #003C9B 100%);
+  color: #fff; font-size: 11px; font-weight: bold;
+  padding: 4px 10px; text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+  border-radius: 2px 2px 0 0;
+}
+.lang-opt { padding: 7px 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #c8c4b8; }
+.lang-opt:last-child { border-bottom: none; }
+.lang-opt:hover { background: #0054E3; color: #fff; }
+.lang-opt.active { font-weight: bold; background: #d0ddf8; }
+.lang-opt:hover.active { background: #0054E3; color: #fff; }
+.lang-opt-flag { font-size: 18px; }
+.lang-opt-code { font-size: 10px; font-weight: bold; color: #666; min-width: 22px; }
+.lang-opt:hover .lang-opt-code { color: #cce; }
+.lang-opt-name { font-size: 13px; }
+#start-menu {
+  display: none; position: fixed; bottom: 30px; left: 0; width: 460px; max-width: 98vw;
+  background: #fff; border: 2px solid #0054E3; border-bottom: none;
+  border-radius: 8px 8px 0 0; box-shadow: 4px -4px 16px rgba(0,0,0,0.5);
+  z-index: 10000; font-family: Tahoma, Arial, sans-serif; font-size: 13px; flex-direction: column;
+}
+#start-menu.open { display: flex; }
+#sm-header { background: linear-gradient(to right, #0054E3 0%, #2882E4 60%, #003C9B 100%); padding: 8px 12px; display: flex; align-items: center; gap: 10px; border-radius: 6px 6px 0 0; }
+#sm-avatar { width: 40px; height: 40px; background: #d4d0c8; border: 2px solid #fff; border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 22px; overflow:hidden; }
+#sm-avatar img{ width:100%; height:100%; object-fit:cover; }
+#sm-username { color:#fff; font-weight:bold; font-size:14px; text-shadow:1px 1px 2px rgba(0,0,0,0.6); }
+#sm-body { display: flex; flex: 1; min-height: 0; }
+#sm-left { flex: 1; padding: 8px 0; border-right: 1px solid #c0c0c0; display: flex; flex-direction: column; }
+#sm-right { width: 170px; background: #EBE8D8; padding: 8px 0; display: flex; flex-direction: column; }
+.sm-label { font-size: 10px; font-weight: bold; color: #666; padding: 2px 12px 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+.sm-divider { height: 1px; background: linear-gradient(to right, #a0a0a0, transparent); margin: 4px 0; }
+.sm-item { padding: 5px 12px; cursor: pointer; display: flex; align-items: center; gap: 8px; border: 1px solid transparent; margin: 1px 2px; border-radius: 2px; }
+.sm-item:hover { background: #0054E3; color: #fff; border-color: #0033aa; }
+.sm-item.sm-all { font-weight: bold; }
+.sm-ritem { padding: 5px 12px; cursor: pointer; display: flex; align-items: center; gap: 8px; border: 1px solid transparent; margin: 1px 2px; border-radius: 2px; font-size: 12px; text-decoration: none; color: inherit; }
+.sm-ritem:hover { background: #0054E3; color: #fff; border-color: #0033aa; }
+.sm-ico { font-size: 16px; flex-shrink:0; }
+#sm-footer { background: linear-gradient(to bottom, #d4d0c8, #b8b4a4); border-top: 1px solid #a0a0a0; padding: 4px 8px; display: flex; justify-content: flex-end; }
+#sm-close-btn { background: linear-gradient(to bottom,#e8e0d0,#c9bfa8); border: 1px outset #808080; padding: 3px 14px; font-family: Tahoma, Arial, sans-serif; font-size: 12px; cursor: pointer; border-radius: 2px; }
+.win { background: #ECE9D8; border: 2px solid #0054E3; border-radius: 6px 6px 4px 4px; box-shadow: 1px 1px 0 #fff inset, -1px -1px 0 #808080 inset, 3px 3px 10px rgba(0,0,0,0.4); margin-bottom: 20px; max-width: 760px; margin-left: auto; margin-right: auto; }
+.win-title { background: linear-gradient(to right, #0054E3 0%, #2882E4 40%, #0054E3 70%, #003C9B 100%); padding: 4px 6px; border-radius: 4px 4px 0 0; display: flex; align-items: center; gap: 6px; user-select: none; }
+.win-icon { font-size: 14px; }
+.win-label { color: #fff; font-weight: bold; font-size: 12px; text-shadow: 1px 1px 2px rgba(0,0,0,0.6); flex: 1; }
+.win-btns { display: flex; gap: 2px; }
+.wb { width: 21px; height: 21px; border-radius: 3px; border: 1px solid rgba(0,0,0,0.4); cursor: pointer; font-size: 11px; font-weight: bold; display: flex; align-items: center; justify-content: center; line-height: 1; box-shadow: inset 0 1px 0 rgba(255,255,255,0.5); }
+.wb-min { background: linear-gradient(to bottom,#e8e0d0,#c9bfa8); color:#000; }
+.wb-max { background: linear-gradient(to bottom,#e8e0d0,#c9bfa8); color:#000; }
+.wb-close { background: linear-gradient(to bottom,#e05050,#b81414); color:#fff; }
+.wb:hover { filter: brightness(1.15); }
+.win-body { padding: 14px 16px; border-top: 1px solid #fff; }
+.inset { border: 2px inset #888; background: #fff; padding: 10px 12px; margin-top: 10px; }
+.win.minimized .win-body { display: none; }
+.sec-label { font-size: 11px; font-weight: bold; color: #fff; background: #003C74; display: inline-block; padding: 1px 6px; margin-bottom: 8px; letter-spacing: 0.05em; }
+.win-divider { border: none; border-top: 1px solid #b0a898; border-bottom: 1px solid #fff; margin: 12px 0; }
+#hero-win .win-body { display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: start; }
+#photo-box { width: 120px; height: 150px; border: 2px inset #888; background: #d4d0c8; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #555; font-size: 11px; text-align: center; gap: 6px; cursor: default; overflow:hidden; position:relative; }
+#photo-box img { width: 100%; height: 100%; object-fit: cover; display:block; }
+#photo-box .ph-icon { font-size: 36px; color:#888; }
+.hero-info h1 { font-size: 18px; font-weight: bold; color: #003C74; margin-bottom: 4px; }
+.hero-info .handle { font-size: 12px; color: #555; font-family: "Courier New", monospace; margin-bottom: 6px; }
+.handle a { color: #0054E3; text-decoration: underline; }
+.badge-row { display: flex; flex-wrap: wrap; gap: 4px; margin: 8px 0; }
+.badge { background: #d4d0c8; border: 1px solid #808080; border-radius: 2px; padding: 1px 6px; font-size: 11px; box-shadow: 1px 1px 0 #fff inset, -1px -1px 0 #555 inset; }
+.status-bar { background: #d4d0c8; border: 1px inset #888; padding: 2px 6px; font-size: 11px; color: #333; margin-top: 8px; display: flex; align-items: center; gap: 6px; }
+.status-led { width: 8px; height: 8px; border-radius: 50%; background: #44bb44; box-shadow: 0 0 3px #44bb44; display: inline-block; }
+.about-text { line-height: 1.65; color: #111; }
+.about-text p { margin-bottom: 6px; }
+.about-text strong { color: #003C74; }
+.svc-list { list-style: none; padding: 0; }
+.svc-list li { padding: 6px 8px; border-bottom: 1px solid #c8c4b8; display: flex; align-items: flex-start; gap: 8px; }
+.svc-list li:last-child { border-bottom: none; }
+.svc-num { background: #0054E3; color: #fff; font-size: 10px; font-weight: bold; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; border-radius: 2px; flex-shrink: 0; margin-top: 1px; }
+.svc-title { font-weight: bold; color: #003C74; }
+.svc-desc { color: #333; font-size: 12px; }
+.skill-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 6px; }
+.skill-row { display: flex; align-items: center; gap: 8px; background: #fff; border: 1px inset #888; padding: 4px 8px; }
+.skill-name { flex: 1; font-size: 12px; }
+.skill-level { font-size: 10px; font-weight: bold; padding: 1px 5px; border-radius: 2px; white-space: nowrap; }
+.lvl-pro { background:#0054E3; color:#fff; }
+.lvl-int { background:#888; color:#fff; }
+.xp-bar-wrap { width: 60px; height: 10px; border: 1px inset #808080; background: #d4d0c8; flex-shrink: 0; }
+.xp-bar { height: 100%; background: linear-gradient(to right, #2264d1, #66a3ff); }
+.exp-block { border-left: 3px solid #0054E3; padding-left: 12px; margin-bottom: 12px; }
+.exp-title { font-weight: bold; color: #003C74; font-size: 13px; }
+.exp-meta { font-size: 11px; color:#555; margin-bottom:4px; }
+.exp-list { list-style: disc; padding-left: 16px; font-size: 12px; line-height: 1.6; color:#333; }
+.edu-block { display:flex; gap:14px; align-items:flex-start; }
+.edu-icon { font-size:28px; flex-shrink:0; }
+.edu-degree { font-weight:bold; color:#003C74; }
+.edu-meta { font-size:11px; color:#555; }
+.lang-row { display:flex; gap:10px; flex-wrap:wrap; }
+.lang-card { border: 2px inset #888; background:#fff; padding:6px 10px; display:flex; align-items:center; gap:6px; font-size:12px; }
+.lang-flag { font-size:20px; }
+#proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-top: 10px; padding: 10px; background: #d4d0c8; border: 2px inset #888; min-height: 80px; }
+.proj-card { background: #ECE9D8; border: 1px solid #808080; box-shadow: 1px 1px 0 #fff inset, -1px -1px 0 #555 inset; padding: 8px; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
+.proj-card:hover { background: #c8d8f8; border-color: #0054E3; }
+.proj-card:active { box-shadow: 1px 1px 0 #555 inset, -1px -1px 0 #fff inset; }
+.proj-icon-wrap { position: relative; width: 56px; height: 56px; flex-shrink: 0; }
+.proj-icon-img { width: 56px; height: 56px; object-fit: cover; border: 1px solid #808080; display: block; }
+.proj-icon-placeholder { width: 56px; height: 56px; background: linear-gradient(135deg, #c8d8f8 0%, #6090e0 100%); border: 1px solid #808080; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+.proj-shortcut-arrow { position: absolute; bottom: 0; left: 0; width: 16px; height: 16px; background: #ECE9D8; border: 1px solid #808080; font-size: 9px; line-height: 14px; text-align: center; font-weight: bold; color: #000; font-family: "Courier New", monospace; }
+.proj-title { font-size: 11px; text-align: center; word-break: break-word; color: #000; line-height: 1.3; font-weight: bold; width: 100%; }
+.proj-desc { font-size: 10px; color: #444; text-align: center; line-height: 1.4; width: 100%; }
+.proj-link { font-size: 10px; color: #0054E3; text-decoration: underline; word-break: break-all; text-align: center; margin-top: auto; }
+.proj-link:hover { color: #c00; }
+.cta-box { text-align:center; padding: 10px; }
+.xp-btn { background: linear-gradient(to bottom,#f0e84a 0%,#d4c100 50%,#b8a800 100%); border: 1px solid #806000; border-radius: 3px; padding: 6px 22px; font-family: Tahoma, Arial, sans-serif; font-size: 13px; font-weight: bold; color: #000; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 2px 2px 4px rgba(0,0,0,0.2); text-decoration: none; display: inline-block; margin: 4px; }
+.xp-btn-blue { background: linear-gradient(to bottom,#6fa8ea 0%,#3a7fdb 50%,#1a60cc 100%); border-color: #0a3a8a; color: #fff; }
+.cta-note { font-size:11px; color:#555; margin-top:8px; }
+.email-xp { display:flex; align-items:center; gap:10px; background:#fff; border:2px inset #888; padding:8px 10px; font-family:"Courier New", monospace; font-size:12px; }
+.email-xp-ico { font-size:20px; }
+#mobile-bar { position: fixed; top: 0; left: 0; right: 0; height: 36px; background: linear-gradient(to bottom, #1f5ba6 0%, #3a8be8 4%, #2b6fcd 6%, #2464c0 50%, #1a56b0 95%, #0e3d8c 100%); border-bottom: 1px solid #0b3d8a; display: flex; align-items: center; padding: 0 6px; z-index: 9000; box-shadow: 0 2px 6px rgba(0,0,0,0.4); gap: 6px; }
+#mob-menu-btn { background: linear-gradient(to bottom, #5db33d 0%, #3d9c1e 50%, #2f8010 100%); border: 1px solid #1e6005; border-radius: 8px; color: #fff; font-family: Tahoma, Arial, sans-serif; font-size: 13px; font-weight: bold; padding: 2px 10px; cursor: pointer; white-space: nowrap; }
+#mob-title { color: #fff; font-size: 11px; font-family: Tahoma, Arial, sans-serif; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+#mob-lang-btn { background: rgba(0,0,0,0.18); border: 1px solid rgba(255,255,255,0.25); border-radius: 2px; color: #fff; font-size: 11px; font-weight: bold; font-family: Tahoma, Arial, sans-serif; padding: 2px 6px; cursor: pointer; white-space: nowrap; }
+#mob-bar-clock { color: #fff; font-size: 12px; background: rgba(0,0,0,0.15); padding: 2px 6px; border: 1px solid rgba(255,255,255,0.2); border-radius: 2px; white-space: nowrap; }
+#mob-lang-menu { display: none; position: fixed; top: 40px; right: 0; background: #ECE9D8; border: 2px solid #0054E3; border-top: none; border-radius: 0 0 4px 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.4); z-index: 10001; min-width: 185px; font-family: Tahoma, Arial, sans-serif; }
+#mob-lang-menu.open { display: block; }
+#mob-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 9998; }
+#mob-overlay.open { display: block; }
+#mob-drawer { position: fixed; top: 0; left: 0; bottom: 0; width: 280px; max-width: 85vw; background: #ECE9D8; border-right: 2px solid #0054E3; z-index: 9999; display: flex; flex-direction: column; transform: translateX(-100%); transition: transform 0.22s ease; font-family: Tahoma, Arial, sans-serif; font-size: 14px; box-shadow: 4px 0 20px rgba(0,0,0,0.5); }
+#mob-drawer.open { transform: translateX(0); }
+#mob-header { background: linear-gradient(to right, #0054E3 0%, #2882E4 60%, #003C9B 100%); padding: 12px 10px; display: flex; align-items: center; gap: 10px; }
+#mob-avatar { width: 44px; height: 44px; background: #d4d0c8; border: 2px solid #fff; border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; overflow:hidden; }
+#mob-avatar img{ width:100%; height:100%; object-fit:cover; }
+#mob-name { color:#fff; font-weight:bold; font-size:14px; text-shadow:1px 1px 2px rgba(0,0,0,0.6); }
+#mob-handle { color:rgba(255,255,255,0.75); font-size:11px; font-family:"Courier New",monospace; }
+#mob-x { margin-left: auto; background: linear-gradient(to bottom,#e05050,#b81414); border: 1px solid rgba(0,0,0,0.4); color: #fff; width: 26px; height: 26px; border-radius: 3px; font-size: 13px; font-weight: bold; cursor: pointer; flex-shrink: 0; }
+#mob-body { flex: 1; overflow-y: auto; padding: 8px 0; }
+.mob-section-label { font-size: 10px; font-weight: bold; color: #555; padding: 6px 14px 3px; letter-spacing: 0.07em; }
+.mob-divider { height: 1px; background: linear-gradient(to right, #a0a0a0, transparent); margin: 6px 0; }
+.mob-item { padding: 9px 14px; display: flex; align-items: center; gap: 10px; border-left: 3px solid transparent; cursor: pointer; text-decoration: none; color: inherit; }
+.mob-item:hover, .mob-item:active { background: #0054E3; color: #fff; border-left-color: #fff; }
+.mob-item.mob-bold { font-weight: bold; }
+.mob-ico { font-size: 18px; flex-shrink: 0; }
+#mob-footer { background: linear-gradient(to bottom, #d4d0c8, #b8b4a4); border-top: 1px solid #a0a0a0; padding: 6px 14px; font-size: 12px; color: #333; display: flex; align-items: center; gap: 6px; }
+@media (max-width: 600px) {
+  #taskbar, #start-menu, #lang-menu { display: none !important; }
+  body { padding-bottom: 0; padding-top: 48px; }
+  #hero-win .win-body { grid-template-columns: 1fr; }
+  #photo-box { width: 100%; height: 120px; }
+  .skill-grid { grid-template-columns: 1fr; }
+  #proj-grid { grid-template-columns: repeat(auto-fill, minmax(130px,1fr)); }
+}
+@media (min-width: 601px) {
+  #mobile-bar, #mob-drawer, #mob-overlay, #mob-lang-menu { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="win" id="hero-win">
+  <div class="win-title">
+    <span class="win-icon">👤</span>
+    <span class="win-label" data-i18n="hero.winTitle"></span>
+    <div class="win-btns">
+      <button class="wb wb-min" onclick="toggleWin('hero-win')">_</button>
+      <button class="wb wb-max">□</button>
+      <button class="wb wb-close">✕</button>
+    </div>
+  </div>
+  <div class="win-body">
+    <div id="photo-box">
+      <img id="profile-img" src="pb.jpg" alt="Moritz Scholz" onerror="this.style.display='none'; document.getElementById('photo-fallback').style.display='flex';">
+      <div id="photo-fallback" style="display:none; flex-direction:column; align-items:center; justify-content:center; width:100%; height:100%; gap:6px;">
+        <span class="ph-icon">🖼</span>
+        <span>pb.jpg</span>
+        <small>hier platzieren</small>
+      </div>
+    </div>
+    <div class="hero-info">
+      <h1>Moritz Scholz</h1>
+      <div class="handle">@legaltechde · 🇩🇪 <span data-i18n="hero.country"></span></div>
+      <div class="badge-row">
+        <span class="badge" data-i18n="hero.badge1"></span>
+        <span class="badge" data-i18n="hero.badge2"></span>
+        <span class="badge" data-i18n="hero.badge3"></span>
+        <span class="badge" data-i18n="hero.badge4"></span>
+      </div>
+      <div class="badge-row">
+        <span class="badge">🇩🇪 DE</span>
+        <span class="badge">🇬🇧 EN</span>
+        <span class="badge">🇷🇺 RU</span>
+      </div>
+<!--       <div class="status-bar"><span class="status-led"></span><span data-i18n="hero.status"></span></div> -->
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="win" id="about-win">
+  <div class="win-title">
+    <span class="win-icon">ℹ</span>
+    <span class="win-label" data-i18n="about.winTitle"></span>
+    <div class="win-btns">
+      <button class="wb wb-min" onclick="toggleWin('about-win')">_</button>
+      <button class="wb wb-max">□</button>
+      <button class="wb wb-close">✕</button>
+    </div>
+  </div>
+  <div class="win-body">
+    <span class="sec-label" data-i18n="about.secLabel"></span>
+    <div class="inset">
+      <div class="about-text">
+        <p data-i18n="about.p1"></p>
+        <p data-i18n="about.p2"></p>
+        <p data-i18n="about.p3"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="win" id="svc-win">
+  <div class="win-title">
+    <span class="win-icon">🗂</span>
+    <span class="win-label" data-i18n="svc.winTitle"></span>
+    <div class="win-btns">
+      <button class="wb wb-min" onclick="toggleWin('svc-win')">_</button>
+      <button class="wb wb-max">□</button>
+      <button class="wb wb-close">✕</button>
+    </div>
+  </div>
+  <div class="win-body">
+    <span class="sec-label" data-i18n="svc.secLabel"></span>
+    <ul class="svc-list inset" style="margin-top:10px" id="svc-list-el"></ul>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="win" id="skills-win">
+  <div class="win-title">
+    <span class="win-icon">🔧</span>
+    <span class="win-label" data-i18n="skills.winTitle"></span>
+    <div class="win-btns">
+      <button class="wb wb-min" onclick="toggleWin('skills-win')">_</button>
+      <button class="wb wb-max">□</button>
+      <button class="wb wb-close">✕</button>
+    </div>
+  </div>
+  <div class="win-body">
+    <span class="sec-label" data-i18n="skills.secLabel"></span>
+    <div class="skill-grid" style="margin-top:10px" id="skills-grid-el"></div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="win" id="exp-win">
+  <div class="win-title">
+    <span class="win-icon">💼</span>
+    <span class="win-label" data-i18n="exp.winTitle"></span>
+    <div class="win-btns">
+      <button class="wb wb-min" onclick="toggleWin('exp-win')">_</button>
+      <button class="wb wb-max">□</button>
+      <button class="wb wb-close">✕</button>
+    </div>
+  </div>
+  <div class="win-body">
+    <span class="sec-label" data-i18n="exp.secLabel"></span>
+    <div style="margin-top:10px">
+      <div class="exp-block">
+        <div class="exp-title" data-i18n="exp.jobTitle"></div>
+        <div class="exp-meta" data-i18n="exp.jobMeta"></div>
+        <ul class="exp-list" id="exp-list-el"></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDUCATION -->
+<div class="win" id="edu-win">
+  <div class="win-title">
+    <span class="win-icon">🎓</span>
+    <span class="win-label" data-i18n="edu.winTitle"></span>
+    <div class="win-btns">
+      <button class="wb wb-min" onclick="toggleWin('edu-win')">_</button>
+      <button class="wb wb-max">□</button>
+      <button class="wb wb-close">✕</button>
+    </div>
+  </div>
+  <div class="win-body">
+    <span class="sec-label" data-i18n="edu.secLabel"></span>
+    <div class="inset" style="margin-top:8px; margin-bottom:14px;">
+      <div class="edu-block">
+        <span class="edu-icon">🏛</span>
+        <div>
+          <div class="edu-degree" data-i18n="edu.degree"></div>
+          <div class="edu-meta" data-i18n="edu.meta"></div>
+        </div>
+      </div>
+    </div>
+    <hr class="win-divider">
+    <span class="sec-label" data-i18n="edu.langSecLabel"></span>
+    <div class="lang-row" style="margin-top:8px;">
+      <div class="lang-card"><span class="lang-flag">🇩🇪</span><div><div style="font-weight:bold" data-i18n="edu.lang1name"></div><div style="font-size:10px;color:#555" data-i18n="edu.lang1level"></div></div></div>
+      <div class="lang-card"><span class="lang-flag">🇬🇧</span><div><div style="font-weight:bold" data-i18n="edu.lang2name"></div><div style="font-size:10px;color:#555" data-i18n="edu.lang2level"></div></div></div>
+      <div class="lang-card"><span class="lang-flag">🇷🇺</span><div><div style="font-weight:bold" data-i18n="edu.lang3name"></div><div style="font-size:10px;color:#555" data-i18n="edu.lang3level"></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="win" id="proj-win">
+  <div class="win-title">
+    <span class="win-icon">📁</span>
+    <span class="win-label" data-i18n="proj.winTitle"></span>
+    <div class="win-btns">
+      <button class="wb wb-min" onclick="toggleWin('proj-win')">_</button>
+      <button class="wb wb-max">□</button>
+      <button class="wb wb-close">✕</button>
+    </div>
+  </div>
+  <div class="win-body">
+    <span class="sec-label" data-i18n="proj.secLabel"></span>
+    <div id="proj-grid">
+      <div class="proj-item"
+           data-img=""
+           data-title-de="Legal-Tech Dokumenten-Konverter"
+           data-title-en="Legal-Tech Document Converter"
+           data-title-ru="Конвертер юридических документов"
+           data-desc-de="Web-App zur Konvertierung juristischer Altdokumente. HTML/CSS/JS, DSGVO-konform."
+           data-desc-en="Web app converting legacy legal documents to modern formats. GDPR-compliant."
+           data-desc-ru="Веб-приложение для конвертации юридических документов. Соответствует GDPR."
+           data-url="mailto:legaltechde@mail.de">
+      </div>
+      <div class="proj-item"
+           data-img=""
+           data-title-de="KI-Prompt-Paket für Kanzleien"
+           data-title-en="AI Prompt Kit for Law Firms"
+           data-title-ru="Пакет AI-промптов для юридических фирм"
+           data-desc-de="DSGVO-sichere GPT/Claude-Prompts für Schriftsätze, Recherche und Zusammenfassungen."
+           data-desc-en="GDPR-safe GPT/Claude prompts for briefs, research and summaries."
+           data-desc-ru="GDPR-совместимые промпты GPT/Claude для документов, исследований и резюме."
+           data-url="mailto:legaltechde@mail.de">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT - JETZT EMAIL XP STYLE -->
+<div class="win" id="contact-win">
+  <div class="win-title">
+    <span class="win-icon">✉️</span>
+    <span class="win-label" data-i18n="contact.winTitle"></span>
+    <div class="win-btns">
+      <button class="wb wb-min" onclick="toggleWin('contact-win')">_</button>
+      <button class="wb wb-max">□</button>
+      <button class="wb wb-close">✕</button>
+    </div>
+  </div>
+  <div class="win-body">
+    <span class="sec-label" data-i18n="contact.secLabel"></span>
+    <div class="inset" style="margin-top:10px;">
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div class="email-xp">
+          <span class="email-xp-ico">📧</span>
+          <div>
+            <div style="font-weight:bold; font-family:Tahoma; font-size:12px;" data-i18n="contact.emailLabel"></div>
+            <div style="font-size:13px; color:#003C74; font-weight:bold;">legaltechde@mail.de</div>
+          </div>
+        </div>
+        <div class="email-xp">
+          <span class="email-xp-ico">🌐</span>
+          <div>
+            <div style="font-weight:bold; font-family:Tahoma; font-size:12px;" data-i18n="contact.webLabel"></div>
+            <div style="font-size:12px;">legaltechde.github.io</div>
+          </div>
+        </div>
+      </div>
+<!--       <div class="cta-box" style="margin-top:12px;">
+        <p style="margin-bottom:12px;color:#003C74;font-weight:bold;font-size:14px;" data-i18n="contact.headline"></p>
+        <a class="xp-btn xp-btn-blue" href="mailto:legaltechde@mail.de" data-i18n="contact.btn"></a>
+        <p class="cta-note" data-i18n="contact.note"></p>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<!-- DESKTOP START MENU -->
+<div id="start-menu">
+  <div id="sm-header"><div id="sm-avatar"><img id="sm-avatar-img" src="pb.jpg" alt="" onerror="this.style.display='none'; this.parentElement.textContent='👤';"> </div><div id="sm-username">Moritz Scholz</div></div>
+  <div id="sm-body">
+    <div id="sm-left">
+      <div class="sm-label" data-i18n="menu.openLabel"></div>
+      <div class="sm-divider"></div>
+      <div class="sm-item" onclick="jumpTo('hero-win')">  <span class="sm-ico">👤</span><span data-i18n="menu.w.hero"></span></div>
+      <div class="sm-item" onclick="jumpTo('about-win')"> <span class="sm-ico">ℹ</span><span data-i18n="menu.w.about"></span></div>
+      <div class="sm-item" onclick="jumpTo('svc-win')">   <span class="sm-ico">🗂</span><span data-i18n="menu.w.svc"></span></div>
+      <div class="sm-item" onclick="jumpTo('skills-win')"><span class="sm-ico">🔧</span><span data-i18n="menu.w.skills"></span></div>
+      <div class="sm-item" onclick="jumpTo('exp-win')">   <span class="sm-ico">💼</span><span data-i18n="menu.w.exp"></span></div>
+      <div class="sm-item" onclick="jumpTo('edu-win')">   <span class="sm-ico">🎓</span><span data-i18n="menu.w.edu"></span></div>
+      <div class="sm-item" onclick="jumpTo('proj-win')">  <span class="sm-ico">📁</span><span data-i18n="menu.w.proj"></span></div>
+      <div class="sm-item" onclick="jumpTo('contact-win')"><span class="sm-ico">✉️</span><span data-i18n="menu.w.contact"></span></div>
+      <div class="sm-divider"></div>
+      <div class="sm-item sm-all" onclick="restoreAll()"> <span class="sm-ico">🔄</span><span data-i18n="menu.restoreAll"></span></div>
+    </div>
+    <div id="sm-right">
+      <div class="sm-label" data-i18n="menu.quickLabel"></div>
+      <div class="sm-divider"></div>
+      <div class="sm-ritem" onclick="jumpTo('hero-win')">   <span class="sm-ico">👤</span><span data-i18n="menu.q.hero"></span></div>
+      <div class="sm-ritem" onclick="jumpTo('svc-win')">    <span class="sm-ico">🗂</span><span data-i18n="menu.q.svc"></span></div>
+      <div class="sm-ritem" onclick="jumpTo('contact-win')"><span class="sm-ico">✉️</span><span data-i18n="menu.q.contact"></span></div>
+      <div class="sm-divider"></div>
+      <a class="sm-ritem" href="mailto:legaltechde@mail.de"><span class="sm-ico">✉️</span><span data-i18n="menu.email"></span></a>
+    </div>
+  </div>
+  <div id="sm-footer"><button id="sm-close-btn" onclick="closeStartMenu()" data-i18n="menu.close"></button></div>
+</div>
+
+<!-- DESKTOP LANG MENU -->
+<div id="lang-menu">
+  <div class="lang-menu-title" data-i18n="langmenu.title"></div>
+  <div class="lang-opt" data-lang="de" onclick="setLang('de')"><span class="lang-opt-flag">🇩🇪</span><span class="lang-opt-code">DE</span><span class="lang-opt-name">Deutsch</span></div>
+  <div class="lang-opt" data-lang="en" onclick="setLang('en')"><span class="lang-opt-flag">🇬🇧</span><span class="lang-opt-code">EN</span><span class="lang-opt-name">English</span></div>
+  <div class="lang-opt" data-lang="ru" onclick="setLang('ru')"><span class="lang-opt-flag">🇷🇺</span><span class="lang-opt-code">RU</span><span class="lang-opt-name">Русский</span></div>
+</div>
+
+<!-- MOBILE LANG MENU -->
+<div id="mob-lang-menu">
+  <div class="lang-menu-title" data-i18n="langmenu.title" style="background:linear-gradient(to right,#0054E3,#2882E4,#003C9B);color:#fff;font-size:11px;font-weight:bold;padding:4px 10px;"></div>
+  <div class="lang-opt" data-lang="de" onclick="setLang('de');closeMobLang()"><span class="lang-opt-flag">🇩🇪</span><span class="lang-opt-code">DE</span><span class="lang-opt-name">Deutsch</span></div>
+  <div class="lang-opt" data-lang="en" onclick="setLang('en');closeMobLang()"><span class="lang-opt-flag">🇬🇧</span><span class="lang-opt-code">EN</span><span class="lang-opt-name">English</span></div>
+  <div class="lang-opt" data-lang="ru" onclick="setLang('ru');closeMobLang()"><span class="lang-opt-flag">🇷🇺</span><span class="lang-opt-code">RU</span><span class="lang-opt-name">Русский</span></div>
+</div>
+
+<!-- MOBILE OVERLAY + DRAWER -->
+<div id="mob-overlay" onclick="closeMobileMenu()"></div>
+<div id="mob-drawer">
+  <div id="mob-header">
+    <div id="mob-avatar"><img src="pb.jpg" alt="" onerror="this.style.display='none'; this.parentElement.textContent='👤';" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div><div id="mob-name">Moritz Scholz</div><div id="mob-handle">@legaltechde</div></div>
+    <button id="mob-x" onclick="closeMobileMenu()">✕</button>
+  </div>
+  <div id="mob-body">
+    <div class="mob-section-label" data-i18n="menu.openLabel"></div>
+    <div class="mob-item" onclick="jumpTo('hero-win')">  <span class="mob-ico">👤</span><span data-i18n="menu.w.hero"></span></div>
+    <div class="mob-item" onclick="jumpTo('about-win')"> <span class="mob-ico">ℹ</span><span data-i18n="menu.w.about"></span></div>
+    <div class="mob-item" onclick="jumpTo('svc-win')">   <span class="mob-ico">🗂</span><span data-i18n="menu.w.svc"></span></div>
+    <div class="mob-item" onclick="jumpTo('skills-win')"><span class="mob-ico">🔧</span><span data-i18n="menu.w.skills"></span></div>
+    <div class="mob-item" onclick="jumpTo('exp-win')">   <span class="mob-ico">💼</span><span data-i18n="menu.w.exp"></span></div>
+    <div class="mob-item" onclick="jumpTo('edu-win')">   <span class="mob-ico">🎓</span><span data-i18n="menu.w.edu"></span></div>
+    <div class="mob-item" onclick="jumpTo('proj-win')">  <span class="mob-ico">📁</span><span data-i18n="menu.w.proj"></span></div>
+    <div class="mob-item" onclick="jumpTo('contact-win')"><span class="mob-ico">✉️️</span><span data-i18n="menu.w.contact"></span></div>
+    <div class="mob-divider"></div>
+    <div class="mob-section-label" data-i18n="menu.actionsLabel"></div>
+    <div class="mob-item mob-bold" onclick="restoreAll()"><span class="mob-ico">🔄</span><span data-i18n="menu.restoreAll"></span></div>
+    <a class="mob-item" href="mailto:legaltechde@mail.de"><span class="mob-ico">✉️️</span><span data-i18n="menu.email"></span></a>
+  </div>
+  <div id="mob-footer">🕐 <span id="mob-clock">--:--</span></div>
+</div>
+
+<!-- DESKTOP TASKBAR -->
+<div id="taskbar">
+  <button id="start-btn" onclick="toggleStartMenu()"><span class="flag">⊞</span> Start</button>
+  <div id="tb-windows"></div>
+  <button id="lang-btn" onclick="toggleLangMenu()">
+    <span id="lang-flag">🇩🇪</span><span id="lang-code">DE</span>
+  </button>
+  <div id="clock">--:--</div>
+</div>
+
+<!-- MOBILE TOP BAR -->
+<div id="mobile-bar">
+  <button id="mob-menu-btn" onclick="openMobileMenu()">☰ <span data-i18n="menu.menuBtn"></span></button>
+  <span id="mob-title">Moritz Scholz · legaltechde</span>
+  <button id="mob-lang-btn" onclick="toggleMobLang()"><span id="mob-lang-flag">🇩🇪</span> <span id="mob-lang-code">DE</span></button>
+  <div id="mob-bar-clock">--:--</div>
+</div>
+
+<script>
+const i18n = {
+  de: {
+    'hero.winTitle':   'Moritz Scholz – Profil – legaltechde',
+    'hero.photoLabel': '',
+    'hero.photoSub':   '',
+    'hero.country':    'Deutschland',
+    'hero.badge1':     '⚖ Jurist (1. Staatsex.)',
+    'hero.badge2':     '💻 Entwickler',
+    'hero.badge3':     '📝 Lektor',
+    'hero.badge4':     '🤖 Prompt Engineer',
+    'hero.status':     'Online · Antwort < 1 Stunde · Diskret & termintreu',
+    'about.winTitle':  'Über mich – Info',
+    'about.secLabel':  'ÜBER MICH',
+    'about.p1':        'Ich bin Jurist (1. Staatsexamen, MLU Halle-Wittenberg) und Entwickler mit über drei Jahren Erfahrung an der Schnittstelle von Recht und Technologie.',
+    'about.p2':        'Mein Fokus: präzise Rechtssprache verbunden mit funktionalem Code. Ich helfe Kanzleien, Unternehmen und Einzelpersonen dabei, juristische Workflows effizienter, sicherer und DSGVO-konform zu gestalten.',
+    'about.p3':        'Keine Rechtsberatung nach RDG. Was ich anbiete: technische und redaktionelle Dienstleistungen rund um juristische Texte, Software und KI-Tools.',
+    'svc.winTitle':    'Leistungen – Services.exe',
+    'svc.secLabel':    'MEINE LEISTUNGEN',
+    'svc.items': [
+      { title: 'Lektorat DE',                       desc: 'Verträge, Gutachten, wissenschaftliche Arbeiten – sprachlich präzise und juristisch korrekt.' },
+      { title: 'Business-Software',                 desc: 'Web-Apps, Python & Excel-Automatisierung, Konverter & Reports. DSGVO-konform entwickelt.' },
+      { title: 'KI-Prompts für Juristen',           desc: 'GPT / Claude sicher einsetzen für Schriftsätze, Recherche & Zusammenfassungen. 3+ Jahre Erfahrung.' },
+      { title: 'Legal Content',                     desc: 'Erklärvideos & Skripte für Kanzleien – verständlich und fachlich fundiert.' },
+      { title: 'PDF-Recherche & Datenaufbereitung', desc: '300+ Seiten analysieren, Daten extrahieren und grafisch aufbereiten.' },
+      { title: 'Übersetzungen DE / EN / RU',        desc: 'Verträge & Schriftsätze – fachkundig in drei Sprachen.' },
+    ],
+    'skills.winTitle': 'Skills & Expertise – Eigenschaften',
+    'skills.secLabel': 'FÄHIGKEITEN',
+    'skills.pro':      'PRO',
+    'skills.mid':      'MID',
+    'exp.winTitle':    'Berufserfahrung – Werdegang',
+    'exp.secLabel':    'ERFAHRUNG',
+    'exp.jobTitle':    'Rechtsservice',
+    'exp.jobMeta':     'Nov. 2023 – Heute',
+    'exp.items': [
+      'Entwicklung DSGVO-konformer Legal-Tech-Tools für juristische Workflows',
+      'Anbindung von Legacy-Systemen via HTML/CSS/JS-Konverter an moderne Software',
+      'Automatisierung von Datenformat-Migrationen für Datenverarbeitungsprozesse',
+      'KI-Software für juristische Dokumentenbearbeitung entwickelt – ohne Programmierkenntnisse bedienbar',
+      'Tool mit EU-weiter Übersetzung für alle europäischen Sprachen entwickelt',
+      'DSGVO-sichere KI-Prompts für Fallbearbeitung erstellt',
+      'Datenbanken eigenständig ausgelesen, befüllt und Ergebnisse grafisch aufbereitet',
+      '300+ juristische Dokumente nach internen Vorgaben strukturiert und sortiert',
+    ],
+    'edu.winTitle':     'Ausbildung & Sprachen',
+    'edu.secLabel':     'AUSBILDUNG',
+    'edu.degree':       '1. Staatsexamen · Rechtswissenschaften',
+    'edu.meta':         'Martin-Luther-Universität Halle-Wittenberg · Deutschland · Abschluss 2026',
+    'edu.langSecLabel': 'SPRACHEN',
+    'edu.lang1name':    'Deutsch',   'edu.lang1level': 'Muttersprache',
+    'edu.lang2name':    'Englisch',  'edu.lang2level': 'Fließend',
+    'edu.lang3name':    'Russisch',  'edu.lang3level': 'Grundkenntnisse',
+    'proj.winTitle':   'Projekte – Meine Arbeiten',
+    'proj.secLabel':   'PROJEKTE',
+    'proj.clickHint':  '– per E-Mail anfragen',
+    'contact.winTitle':'Kontakt – Direktnachricht',
+    'contact.secLabel':'KONTAKT',
+    'contact.headline':'Bereit zusammenzuarbeiten?',
+    'contact.emailLabel':'E-Mail',
+    'contact.webLabel':'Website',
+    'contact.btn':     '✉️  E-Mail schreiben',
+    'contact.note':    'Antwort < 1 Stunde · Diskret · Termintreu · DSGVO-konform',
+    'menu.openLabel':   'Fenster öffnen / springen',
+    'menu.quickLabel':  'Schnellzugriff',
+    'menu.actionsLabel':'Aktionen',
+    'menu.restoreAll':  'Alle wiederherstellen',
+    'menu.close':       '✕  Schließen',
+    'menu.email':       'E-Mail schreiben',
+    'menu.menuBtn':     'Menü',
+    'menu.w.hero':      'Profil',
+    'menu.w.about':     'Über mich',
+    'menu.w.svc':       'Leistungen',
+    'menu.w.skills':    'Skills',
+    'menu.w.exp':       'Erfahrung',
+    'menu.w.edu':       'Ausbildung & Sprachen',
+    'menu.w.proj':      'Projekte',
+    'menu.w.contact':   'Kontakt',
+    'menu.q.hero':      'Zu Profil scrollen',
+    'menu.q.svc':       'Zu Leistungen scrollen',
+    'menu.q.contact':   'Zu Kontakt scrollen',
+    'langmenu.title':   'Sprache wählen',
+  },
+  en: {
+    'hero.winTitle':   'Moritz Scholz – Profile – legaltechde',
+    'hero.photoLabel': '',
+    'hero.photoSub':   '',
+    'hero.country':    'Germany',
+    'hero.badge1':     '⚖ Jurist (1st State Exam)',
+    'hero.badge2':     '💻 Developer',
+    'hero.badge3':     '📝 Editor',
+    'hero.badge4':     '🤖 Prompt Engineer',
+    'hero.status':     'Online · Response < 1 hour · Discreet & reliable',
+    'about.winTitle':  'About – Info',
+    'about.secLabel':  'ABOUT ME',
+    'about.p1':        'I am a jurist (1st State Examination, MLU Halle-Wittenberg) and developer with over three years of experience at the intersection of law and technology.',
+    'about.p2':        'My focus: precise legal language combined with functional code. I help law firms, companies, and individuals make their legal workflows more efficient, secure, and GDPR-compliant.',
+    'about.p3':        'No legal advice under German RDG. What I offer: technical and editorial services around legal texts, software, and AI tools.',
+    'svc.winTitle':    'Services – Services.exe',
+    'svc.secLabel':    'MY SERVICES',
+    'svc.items': [
+      { title: 'Proofreading / Editing DE',   desc: 'Contracts, expert opinions, academic papers – linguistically precise and legally correct.' },
+      { title: 'Business Software',           desc: 'Web apps, Python & Excel automation, converters & reports. GDPR-compliant.' },
+      { title: 'AI Prompts for Lawyers',      desc: 'Use GPT / Claude safely for briefs, research & summaries. 3+ years experience.' },
+      { title: 'Legal Content',               desc: 'Explainer videos & scripts for law firms – clear and professionally grounded.' },
+      { title: 'PDF Research & Data Prep',    desc: 'Analyse 300+ pages, extract data and present it visually.' },
+      { title: 'Translations DE / EN / RU',   desc: 'Contracts & legal documents – expert in three languages.' },
+    ],
+    'skills.winTitle': 'Skills & Expertise – Properties',
+    'skills.secLabel': 'SKILLS',
+    'skills.pro':      'PRO',
+    'skills.mid':      'MID',
+    'exp.winTitle':    'Work Experience – Career',
+    'exp.secLabel':    'EXPERIENCE',
+    'exp.jobTitle':    'Legal Services',
+    'exp.jobMeta':     'Nov 2023 – Present',
+    'exp.items': [
+      'Development of GDPR-compliant legal tech tools for legal workflows',
+      'Connected legacy systems to modern software via HTML/CSS/JS converters',
+      'Automated data format migrations for data processing pipelines',
+      'Developed AI software for legal document processing – usable without coding skills',
+      'Built an EU-wide translation tool covering all European languages',
+      'Created GDPR-safe AI prompts for case processing',
+      'Independently read, populated databases and visualised results',
+      'Structured and sorted 300+ legal documents according to internal guidelines',
+    ],
+    'edu.winTitle':     'Education & Languages',
+    'edu.secLabel':     'EDUCATION',
+    'edu.degree':       'First State Examination in Law (J.D. equivalent)',
+    'edu.meta':         'Martin Luther University Halle-Wittenberg · Germany · Graduating 2026',
+    'edu.langSecLabel': 'LANGUAGES',
+    'edu.lang1name':    'German',    'edu.lang1level': 'Native',
+    'edu.lang2name':    'English',   'edu.lang2level': 'Fluent',
+    'edu.lang3name':    'Russian',   'edu.lang3level': 'Basic',
+    'proj.winTitle':   'Projects – My Work',
+    'proj.secLabel':   'PROJECTS',
+    'proj.clickHint':  '– request via e-mail',
+    'contact.winTitle':'Contact – Direct Message',
+    'contact.secLabel':'CONTACT',
+    'contact.headline':'Ready to work together?',
+    'contact.emailLabel':'E-Mail',
+    'contact.webLabel':'Website',
+    'contact.btn':     '✉️  Write e-mail',
+    'contact.note':    'Response < 1 hour · Discreet · Reliable · GDPR-compliant',
+    'menu.openLabel':   'Open / jump to window',
+    'menu.quickLabel':  'Quick access',
+    'menu.actionsLabel':'Actions',
+    'menu.restoreAll':  'Restore all',
+    'menu.close':       '✕  Close',
+    'menu.email':       'Write e-mail',
+    'menu.menuBtn':     'Menu',
+    'menu.w.hero':      'Profile',
+    'menu.w.about':     'About me',
+    'menu.w.svc':       'Services',
+    'menu.w.skills':    'Skills',
+    'menu.w.exp':       'Experience',
+    'menu.w.edu':       'Education & Languages',
+    'menu.w.proj':      'Projects',
+    'menu.w.contact':   'Contact',
+    'menu.q.hero':      'Scroll to Profile',
+    'menu.q.svc':       'Scroll to Services',
+    'menu.q.contact':   'Scroll to Contact',
+    'langmenu.title':   'Choose language',
+  },
+  ru: {
+    'hero.winTitle':   'Мориц Шольц – Профиль – legaltechde',
+    'hero.photoLabel': '',
+    'hero.photoSub':   '',
+    'hero.country':    'Германия',
+    'hero.badge1':     '⚖ Юрист (1-й госэкзамен)',
+    'hero.badge2':     '💻 Разработчик',
+    'hero.badge3':     '📝 Редактор',
+    'hero.badge4':     '🤖 Prompt Engineer',
+    'hero.status':     'Онлайн · Ответ < 1 часа · Конфиденциально и пунктуально',
+    'about.winTitle':  'Обо мне – Информация',
+    'about.secLabel':  'ОБО МНЕ',
+    'about.p1':        'Я юрист (1-й государственный экзамен, университет Галле-Виттенберг) и разработчик с более чем тремя годами опыта на стыке права и технологий.',
+    'about.p2':        'Мой фокус: точный юридический язык в сочетании с функциональным кодом. Я помогаю юридическим фирмам, компаниям и частным лицам сделать правовые рабочие процессы эффективнее, безопаснее и соответствующими GDPR.',
+    'about.p3':        'Юридические консультации по германскому RDG не предоставляются. Что я предлагаю: технические и редакторские услуги в области юридических текстов, программного обеспечения и AI-инструментов.',
+    'svc.winTitle':    'Услуги – Services.exe',
+    'svc.secLabel':    'МОИ УСЛУГИ',
+    'svc.items': [
+      { title: 'Редактура DE',                          desc: 'Договоры, заключения, научные работы – точные формулировки и юридическая корректность.' },
+      { title: 'Бизнес-программное обеспечение',        desc: 'Веб-приложения, автоматизация Python и Excel, конвертеры и отчёты. Соответствует GDPR.' },
+      { title: 'AI-промпты для юристов',                desc: 'Безопасное использование GPT / Claude для документов, исследований и резюме. Опыт 3+ лет.' },
+      { title: 'Legal Content',                         desc: 'Обучающие видео и сценарии для юридических фирм – понятно и профессионально.' },
+      { title: 'PDF-исследование и подготовка данных',  desc: 'Анализ 300+ страниц, извлечение данных и наглядное представление результатов.' },
+      { title: 'Переводы DE / EN / RU',                 desc: 'Договоры и правовые документы – экспертно на трёх языках.' },
+    ],
+    'skills.winTitle': 'Навыки и экспертиза – Свойства',
+    'skills.secLabel': 'НАВЫКИ',
+    'skills.pro':      'PRO',
+    'skills.mid':      'СРД',
+    'exp.winTitle':    'Опыт работы – Карьера',
+    'exp.secLabel':    'ОПЫТ',
+    'exp.jobTitle':    'Юридическая служба',
+    'exp.jobMeta':     'Нояб. 2023 – Настоящее время',
+    'exp.items': [
+      'Разработка юридических инструментов Legal Tech, соответствующих GDPR',
+      'Подключение устаревших систем к современному ПО через HTML/CSS/JS-конвертеры',
+      'Автоматизация миграции форматов данных для процессов обработки данных',
+      'Разработка AI-программного обеспечения для обработки юридических документов – без навыков программирования',
+      'Создание инструмента с общеевропейским переводом на все языки ЕС',
+      'Разработка GDPR-совместимых AI-промптов для обработки дел',
+      'Самостоятельное чтение и наполнение баз данных, визуализация результатов',
+      'Структурирование и сортировка 300+ юридических документов по внутренним требованиям',
+    ],
+    'edu.winTitle':     'Образование и языки',
+    'edu.secLabel':     'ОБРАЗОВАНИЕ',
+    'edu.degree':       '1-й государственный экзамен · Юриспруденция',
+    'edu.meta':         'Университет Мартина Лютера Галле-Виттенберг · Германия · Выпуск 2026',
+    'edu.langSecLabel': 'ЯЗЫКИ',
+    'edu.lang1name':    'Немецкий',   'edu.lang1level': 'Родной',
+    'edu.lang2name':    'Английский', 'edu.lang2level': 'Свободно',
+    'edu.lang3name':    'Русский',    'edu.lang3level': 'Начинающий',
+    'proj.winTitle':   'Проекты – Мои работы',
+    'proj.secLabel':   'ПРОЕКТЫ',
+    'proj.clickHint':  '– запрос по e-mail',
+    'contact.winTitle':'Контакт – Написать',
+    'contact.secLabel':'КОНТАКТ',
+    'contact.headline':'Готовы работать вместе?',
+    'contact.emailLabel':'E-Mail',
+    'contact.webLabel':'Веб-сайт',
+    'contact.btn':     '✉️  Написать e-mail',
+    'contact.note':    'Ответ < 1 часа · Конфиденциально · Пунктуально · Соответствует GDPR',
+    'menu.openLabel':   'Открыть / перейти к окну',
+    'menu.quickLabel':  'Быстрый доступ',
+    'menu.actionsLabel':'Действия',
+    'menu.restoreAll':  'Восстановить всё',
+    'menu.close':       '✕  Закрыть',
+    'menu.email':       'Написать e-mail',
+    'menu.menuBtn':     'Меню',
+    'menu.w.hero':      'Профиль',
+    'menu.w.about':     'Обо мне',
+    'menu.w.svc':       'Услуги',
+    'menu.w.skills':    'Навыки',
+    'menu.w.exp':       'Опыт',
+    'menu.w.edu':       'Образование и языки',
+    'menu.w.proj':      'Проекты',
+    'menu.w.contact':   'Контакт',
+    'menu.q.hero':      'К профилю',
+    'menu.q.svc':       'К услугам',
+    'menu.q.contact':   'К контакту',
+    'langmenu.title':   'Выбор языка',
+  },
+};
+
+const skillsData = [
+  { name:'Lektorat / Editing',   pct:100, lvl:'pro' },
+  { name:'HTML / HTML5',         pct:100, lvl:'pro' },
+  { name:'Prompt Engineering',   pct:100, lvl:'pro' },
+  { name:'ChatGPT / Claude AI',  pct:100, lvl:'pro' },
+  { name:'PDF Conversion',       pct:100, lvl:'pro' },
+  { name:'PDF to Excel / HTML',  pct:100, lvl:'pro' },
+  { name:'Software Automation',  pct:100, lvl:'pro' },
+  { name:'Custom Software Dev',  pct:100, lvl:'pro' },
+  { name:'Business Copywriting', pct:100, lvl:'pro' },
+  { name:'Video / Explainer',    pct:100, lvl:'pro' },
+  { name:'JavaScript',           pct: 65, lvl:'int' },
+  { name:'Python',               pct: 65, lvl:'int' },
+  { name:'Law / Recht / Право',  pct: 65, lvl:'int' },
+  { name:'Civil Law',            pct: 65, lvl:'int' },
+  { name:'Employment Law',       pct: 65, lvl:'int' },
+  { name:'Contract Law',         pct: 65, lvl:'int' },
+  { name:'Legal Translation',    pct: 65, lvl:'int' },
+  { name:'Legal Transcription',  pct: 65, lvl:'int' },
+];
+
+const langMeta = {
+  de: { flag:'🇩🇪', code:'DE', locale:'de-DE' },
+  en: { flag:'🇬🇧', code:'EN', locale:'en-GB' },
+  ru: { flag:'🇷🇺', code:'RU', locale:'ru-RU' },
+};
+let currentLang = 'de';
+
+function detectLang() {
+  const saved = localStorage.getItem('ms_lang');
+  if (saved && i18n[saved]) return saved;
+  const nav = (navigator.language || 'de').toLowerCase();
+  if (nav.startsWith('ru')) return 'ru';
+  if (nav.startsWith('en')) return 'en';
+  return 'de';
+}
+function t(key) {
+  return (i18n[currentLang] && i18n[currentLang][key] !== undefined)
+    ? i18n[currentLang][key]
+    : (i18n['de'][key] || key);
+}
+function applyLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('ms_lang', lang);
+  document.documentElement.lang = lang;
+  const meta = langMeta[lang];
+  document.getElementById('lang-flag').textContent   = meta.flag;
+  document.getElementById('lang-code').textContent   = meta.code;
+  document.getElementById('mob-lang-flag').textContent = meta.flag;
+  document.getElementById('mob-lang-code').textContent = meta.code;
+  document.querySelectorAll('.lang-opt').forEach(el => {
+    el.classList.toggle('active', el.dataset.lang === lang);
+  });
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const val = t(el.dataset.i18n);
+    if (typeof val === 'string') el.textContent = val;
+  });
+  renderServices();
+  renderExperience();
+  renderSkills();
+  renderProjects();
+  updateAllTbBtns();
+  tick();
+}
+function setLang(lang) {
+  applyLang(lang);
+  closeLangMenu();
+  closeMobLang();
+  closeStartMenu();
+}
+function renderServices() {
+  const el = document.getElementById('svc-list-el');
+  if (!el) return;
+  const items = t('svc.items');
+  if (!Array.isArray(items)) return;
+  el.innerHTML = items.map((item, i) => `
+    <li>
+      <span class="svc-num">${i+1}</span>
+      <div><div class="svc-title">${item.title}</div><div class="svc-desc">${item.desc}</div></div>
+    </li>`).join('');
+}
+function renderExperience() {
+  const el = document.getElementById('exp-list-el');
+  if (!el) return;
+  const items = t('exp.items');
+  if (!Array.isArray(items)) return;
+  el.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+}
+function renderSkills() {
+  const el = document.getElementById('skills-grid-el');
+  if (!el) return;
+  el.innerHTML = skillsData.map(s => `
+    <div class="skill-row">
+      <span class="skill-name">${s.name}</span>
+      <div class="xp-bar-wrap"><div class="xp-bar" style="width:${s.pct}%"></div></div>
+      <span class="skill-level ${s.lvl==='pro'?'lvl-pro':'lvl-int'}">${s.lvl==='pro'?t('skills.pro'):t('skills.mid')}</span>
+    </div>`).join('');
+}
+function renderProjects() {
+  document.querySelectorAll('.proj-item, .proj-card[data-proj]').forEach(el => {
+    if (el.classList.contains('proj-item')) {
+      const card = buildProjCard(el);
+      el.replaceWith(card);
+    } else {
+      const lang = currentLang;
+      const get = (p) => el.dataset[p + lang.charAt(0).toUpperCase() + lang.slice(1)] || el.dataset[p + 'De'] || '';
+      const title = get('title');
+      const desc = get('desc');
+      const te = el.querySelector('.proj-title');
+      const de = el.querySelector('.proj-desc');
+      if (te) te.textContent = title;
+      if (de) de.textContent = desc;
+      el.title = title + ' ' + t('proj.clickHint');
+    }
+  });
+}
+function buildProjCard(item) {
+  const lang = currentLang;
+  const img = item.dataset.img || '';
+  const getT = (prefix) => item.dataset[prefix + lang.charAt(0).toUpperCase() + lang.slice(1)] || item.dataset[prefix + 'De'] || '';
+  const title = getT('title');
+  const desc = getT('desc');
+  const url = item.dataset.url || 'mailto:legaltechde@mail.de';
+  const card = document.createElement('div');
+  card.className = 'proj-card';
+  card.dataset.proj = '1';
+  Object.assign(card.dataset, item.dataset);
+  card.title = title + ' ' + t('proj.clickHint');
+  card.onclick = () => window.location.href = url;
+  const iconWrap = document.createElement('div');
+  iconWrap.className = 'proj-icon-wrap';
+  if (img) {
+    const im = document.createElement('img');
+    im.className = 'proj-icon-img'; im.src = img; im.alt = title;
+    iconWrap.appendChild(im);
+  } else {
+    const ph = document.createElement('div');
+    ph.className = 'proj-icon-placeholder'; ph.textContent = '📄';
+    iconWrap.appendChild(ph);
+  }
+  const arrow = document.createElement('div');
+  arrow.className = 'proj-shortcut-arrow'; arrow.textContent = '↗';
+  iconWrap.appendChild(arrow);
+  card.appendChild(iconWrap);
+  const titleEl = document.createElement('div'); titleEl.className = 'proj-title'; titleEl.textContent = title; card.appendChild(titleEl);
+  const descEl  = document.createElement('div'); descEl.className  = 'proj-desc';  descEl.textContent  = desc;  card.appendChild(descEl);
+  const linkEl = document.createElement('a');
+  linkEl.className = 'proj-link'; linkEl.href = url;
+  linkEl.textContent = url.startsWith('mailto:') ? url.replace('mailto:','') : (url.length>35?url.slice(0,34)+'…':url);
+  linkEl.onclick = e => e.stopPropagation();
+  card.appendChild(linkEl);
+  return card;
+}
+const windows = [
+  { id:'hero-win',    icon:'👤', key:'menu.w.hero'    },
+  { id:'about-win',   icon:'ℹ',  key:'menu.w.about'   },
+  { id:'svc-win',     icon:'🗂', key:'menu.w.svc'     },
+  { id:'skills-win',  icon:'🔧', key:'menu.w.skills'  },
+  { id:'exp-win',     icon:'💼', key:'menu.w.exp'     },
+  { id:'edu-win',     icon:'🎓', key:'menu.w.edu'     },
+  { id:'proj-win',    icon:'📁', key:'menu.w.proj'    },
+  { id:'contact-win', icon:'✉️', key:'menu.w.contact' },
+];
+const tbWins = document.getElementById('tb-windows');
+windows.forEach(w => {
+  const btn = document.createElement('button');
+  btn.className = 'tb-win-btn'; btn.id = 'tb-' + w.id;
+  btn.onclick = () => { jumpTo(w.id); closeStartMenu(); };
+  tbWins.appendChild(btn);
+});
+function updateAllTbBtns() {
+  windows.forEach(w => {
+    const btn = document.getElementById('tb-' + w.id);
+    if (btn) { btn.innerHTML = w.icon + ' ' + t(w.key); updateTbBtn(w.id); }
+  });
+}
+function updateTbBtn(id) {
+  const el = document.getElementById(id);
+  const btn = document.getElementById('tb-' + id);
+  if (btn && el) btn.classList.toggle('closed', el.style.display === 'none' || el.classList.contains('minimized'));
+}
+function toggleWin(id) {
+  document.getElementById(id).classList.toggle('minimized');
+  updateTbBtn(id);
+}
+function jumpTo(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.display = ''; el.style.opacity = '1';
+  el.classList.remove('minimized');
+  updateTbBtn(id);
+  closeStartMenu(); closeMobileMenu();
+  setTimeout(() => el.scrollIntoView({ behavior:'smooth', block:'start' }), 80);
+}
+function restoreAll() {
+  windows.forEach(w => {
+    const el = document.getElementById(w.id);
+    el.style.display = ''; el.style.opacity = '1';
+    el.classList.remove('minimized'); updateTbBtn(w.id);
+  });
+  closeStartMenu(); closeMobileMenu();
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+document.querySelectorAll('.wb-close').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const win = this.closest('.win');
+    win.style.transition = 'opacity 0.2s'; win.style.opacity = '0';
+    setTimeout(() => { win.style.display = 'none'; updateTbBtn(win.id); }, 220);
+  });
+});
+function tick() {
+  const locale = (langMeta[currentLang]||langMeta.de).locale;
+  const s = new Date().toLocaleTimeString(locale, {hour:'2-digit', minute:'2-digit'});
+  ['clock','mob-bar-clock','mob-clock'].forEach(id => { const e=document.getElementById(id); if(e) e.textContent=s; });
+}
+tick(); setInterval(tick, 10000);
+function toggleStartMenu() { document.getElementById('start-menu').classList.toggle('open'); }
+function closeStartMenu()  { document.getElementById('start-menu').classList.remove('open'); }
+function toggleLangMenu()  { document.getElementById('lang-menu').classList.toggle('open'); }
+function closeLangMenu()   { document.getElementById('lang-menu').classList.remove('open'); }
+function toggleMobLang()   { document.getElementById('mob-lang-menu').classList.toggle('open'); }
+function closeMobLang()    { document.getElementById('mob-lang-menu').classList.remove('open'); }
+function openMobileMenu()  { document.getElementById('mob-drawer').classList.add('open'); document.getElementById('mob-overlay').classList.add('open'); }
+function closeMobileMenu() { document.getElementById('mob-drawer').classList.remove('open'); document.getElementById('mob-overlay').classList.remove('open'); }
+document.addEventListener('click', e => {
+  const pairs = [
+    ['start-menu','start-btn'],
+    ['lang-menu','lang-btn'],
+    ['mob-lang-menu','mob-lang-btn'],
+  ];
+  pairs.forEach(([menuId, btnId]) => {
+    const menu = document.getElementById(menuId);
+    const btn  = document.getElementById(btnId);
+    if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
+      menu.classList.remove('open');
+    }
+  });
+});
+applyLang(detectLang());
+</script>
+</body>
+</html>
