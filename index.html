@@ -19,6 +19,15 @@ body {
   font-size: 13px; color: #000;
   padding: 24px 16px 48px;
 }
+
+/* ===== XP-style scrollbars ===== */
+::-webkit-scrollbar { width: 16px; height: 16px; }
+::-webkit-scrollbar-track { background: #d4d0c8; border-left: 1px solid #808080; }
+::-webkit-scrollbar-thumb { background: linear-gradient(to bottom,#e8e0d0,#c9bfa8); border: 1px solid #808080; }
+::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom,#f0e8d8,#d8cdb4); }
+::-webkit-scrollbar-button { background: linear-gradient(to bottom,#e8e0d0,#c9bfa8); border: 1px solid #808080; height: 16px; width:16px; }
+::-webkit-scrollbar-corner { background: #d4d0c8; }
+
 #taskbar {
   position: fixed; bottom: 0; left: 0; right: 0; height: 30px;
   background: linear-gradient(to bottom, #1f5ba6 0%, #3a8be8 4%, #2b6fcd 6%, #2464c0 50%, #1a56b0 95%, #0e3d8c 100%);
@@ -103,23 +112,48 @@ body {
 .win { background: #ECE9D8; border: 2px solid #0054E3; border-radius: 6px 6px 4px 4px; box-shadow: 1px 1px 0 #fff inset, -1px -1px 0 #808080 inset, 3px 3px 10px rgba(0,0,0,0.4); margin-bottom: 20px; max-width: 760px; margin-left: auto; margin-right: auto; }
 .win-title { background: linear-gradient(to right, #0054E3 0%, #2882E4 40%, #0054E3 70%, #003C9B 100%); padding: 4px 6px; border-radius: 4px 4px 0 0; display: flex; align-items: center; gap: 6px; user-select: none; }
 .win-icon { font-size: 14px; }
+
+.flag-svg { display: inline-block; vertical-align: middle; border: 1px solid rgba(0,0,0,0.2); border-radius: 1px; flex-shrink: 0; }
+.lang-opt-flag { display: inline-flex; align-items: center; }
+.lang-flag { display: inline-flex; align-items: center; }
+.badge .ico { vertical-align: -2px; margin-right: 2px; }
+.badge-ico { display: inline-flex; align-items: center; margin-right: 3px; color: #003C74; }
+.handle-flag { display: inline-flex; align-items: center; vertical-align: middle; margin: 0 2px; }
+.ph-icon { display: flex; align-items: center; justify-content: center; color: #888; }
+.ph-icon .ico { width: 36px; height: 36px; }
+#start-btn .ico { margin-right: 2px; }
+#mob-menu-btn .ico { vertical-align: -2px; margin-right: 2px; }
+#mob-footer .ico { vertical-align: -2px; margin-right: 2px; }
+.proj-icon-placeholder .ico { width: 28px; height: 28px; color: #fff; }
+
+.win-icon { display:inline-flex; align-items:center; color:#fff; }
+.win-icon .ico { display:block; }
+.sm-ico, .mob-ico { display:inline-flex; align-items:center; flex-shrink:0; }
+.sm-ico .ico, .mob-ico .ico { display:block; }
+.tb-win-btn .ico { flex-shrink:0; }
+.edu-icon { display:inline-flex; align-items:center; color:#003C74; }
+.edu-icon .ico { width:28px; height:28px; }
+.email-xp-ico { display:inline-flex; align-items:center; color:#003C74; }
+.email-xp-ico .ico { width:20px; height:20px; }
+
 .win-label { color: #fff; font-weight: bold; font-size: 12px; text-shadow: 1px 1px 2px rgba(0,0,0,0.6); flex: 1; }
 .win-btns { display: flex; gap: 2px; }
-.wb { width: 21px; height: 21px; border-radius: 3px; border: 1px solid rgba(0,0,0,0.4); cursor: pointer; font-size: 11px; font-weight: bold; display: flex; align-items: center; justify-content: center; line-height: 1; box-shadow: inset 0 1px 0 rgba(255,255,255,0.5); }
-.wb-min { background: linear-gradient(to bottom,#e8e0d0,#c9bfa8); color:#000; }
-.wb-max { background: linear-gradient(to bottom,#e8e0d0,#c9bfa8); color:#000; }
-.wb-close { background: linear-gradient(to bottom,#e05050,#b81414); color:#fff; }
+.wb { width: 21px; height: 21px; border-radius: 2px; border: 1px solid rgba(0,0,0,0.45); cursor: pointer; font-size: 11px; font-weight: bold; display: flex; align-items: center; justify-content: center; line-height: 1; }
+.wb-min, .wb-max { background: linear-gradient(to bottom,#f3ede0 0%,#e8e0d0 45%,#c9bfa8 55%,#bcb097 100%); color:#000; box-shadow: inset -1px -1px 0 rgba(0,0,0,0.35), inset 1px 1px 0 rgba(255,255,255,0.8); }
+.wb-close { background: linear-gradient(to bottom,#f0a0a0 0%,#e05050 45%,#c31c1c 55%,#a01010 100%); color:#fff; box-shadow: inset -1px -1px 0 rgba(0,0,0,0.35), inset 1px 1px 0 rgba(255,255,255,0.5); }
 .wb:hover { filter: brightness(1.15); }
+.wb:active { box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5); }
 .win-body { padding: 14px 16px; border-top: 1px solid #fff; }
 .inset { border: 2px inset #888; background: #fff; padding: 10px 12px; margin-top: 10px; }
 .win.minimized .win-body { display: none; }
+#hero-win.minimized .win-body { display: none; }
 .sec-label { font-size: 11px; font-weight: bold; color: #fff; background: #003C74; display: inline-block; padding: 1px 6px; margin-bottom: 8px; letter-spacing: 0.05em; }
 .win-divider { border: none; border-top: 1px solid #b0a898; border-bottom: 1px solid #fff; margin: 12px 0; }
 #hero-win .win-body { display: grid; grid-template-columns: 120px 1fr; gap: 18px; align-items: center; }
 #photo-box {
   width: 120px; height: 120px;
-  background: #d4d0c8;
-  border: 2px solid #000;
+  background: #fff;
+  border: 2px inset #888;
   display: flex; align-items: center; justify-content: center;
   overflow: hidden;
   position: relative;
@@ -152,14 +186,96 @@ body {
 .svc-num { background: #0054E3; color: #fff; font-size: 10px; font-weight: bold; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; border-radius: 2px; flex-shrink: 0; margin-top: 1px; }
 .svc-title { font-weight: bold; color: #003C74; }
 .svc-desc { color: #333; font-size: 12px; }
-.skill-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 6px; }
-.skill-row { display: flex; align-items: center; gap: 8px; background: #fff; border: 1px inset #888; padding: 4px 8px; }
-.skill-name { flex: 1; font-size: 12px; }
-.skill-level { font-size: 10px; font-weight: bold; padding: 1px 5px; border-radius: 2px; white-space: nowrap; }
-.lvl-pro { background:#0054E3; color:#fff; }
-.lvl-int { background:#888; color:#fff; }
-.xp-bar-wrap { width: 60px; height: 10px; border: 1px inset #808080; background: #d4d0c8; flex-shrink: 0; }
-.xp-bar { height: 100%; background: linear-gradient(to right, #2264d1, #66a3ff); }
+
+/* ===== Skill Tree (game-style XP tree) ===== */
+#st-canvas {
+  position: relative;
+  padding: 4px 4px 10px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+#st-svg {
+  position: absolute;
+  top: 0; left: 0;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 0;
+}
+.st-line {
+  stroke: #0054E3;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.st-line-sub {
+  stroke: #5a9ad8;
+  stroke-width: 1.5;
+  stroke-dasharray: 5 3;
+  stroke-linecap: round;
+}
+#st-root-wrap, #st-root { display: none !important; }
+#st-categories {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  gap: 8px;
+  align-items: flex-start;
+}
+.st-category {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 100%;
+}
+.st-cat-node {
+  background: linear-gradient(to bottom, #f8f4e8 0%, #e8e0d0 45%, #d4cbb4 100%);
+  border: 1px outset #b8ac90;
+  border-radius: 3px;
+  padding: 5px 8px;
+  font-weight: bold;
+  font-size: 11px;
+  color: #003C74;
+  text-align: center;
+  box-shadow: 1px 1px 0 #fff inset, -1px -1px 0 #8a7f68 inset, 1px 1px 3px rgba(0,0,0,0.15);
+  width: 100%;
+  max-width: 155px;
+  box-sizing: border-box;
+  white-space: normal;
+  line-height: 1.3;
+  word-break: break-word;
+  cursor: default;
+  user-select: none;
+}
+.st-cat-label { flex: 1; }
+.st-cat-toggle { display: none; }
+.st-leaf-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: stretch;
+  width: 100%;
+  max-width: 155px;
+}
+.st-leaf-node {
+  background: #fff;
+  border: 2px inset #888;
+  border-radius: 0;
+  padding: 4px 8px;
+  font-size: 11px;
+  text-align: center;
+  color: #222;
+  line-height: 1.35;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.st-node { /* shared */ }
+
+
 .exp-block { border-left: 3px solid #0054E3; padding-left: 12px; margin-bottom: 12px; }
 .exp-title { font-weight: bold; color: #003C74; font-size: 13px; }
 .exp-meta { font-size: 11px; color:#555; margin-bottom:4px; }
@@ -187,8 +303,33 @@ body {
 .xp-btn { background: linear-gradient(to bottom,#f0e84a 0%,#d4c100 50%,#b8a800 100%); border: 1px solid #806000; border-radius: 3px; padding: 6px 22px; font-family: Tahoma, Arial, sans-serif; font-size: 13px; font-weight: bold; color: #000; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 2px 2px 4px rgba(0,0,0,0.2); text-decoration: none; display: inline-block; margin: 4px; }
 .xp-btn-blue { background: linear-gradient(to bottom,#6fa8ea 0%,#3a7fdb 50%,#1a60cc 100%); border-color: #0a3a8a; color: #fff; }
 .cta-note { font-size:11px; color:#555; margin-top:8px; }
-.email-xp { display:flex; align-items:center; gap:10px; background:#fff; border:2px inset #888; padding:8px 10px; font-family:"Courier New", monospace; font-size:12px; }
+.email-xp { display:flex; align-items:center; gap:10px; background:#fff; border:2px inset #888; padding:8px 10px; font-family:"Courier New", monospace; font-size:12px; flex-wrap: wrap; }
 .email-xp-ico { font-size:20px; }
+#email-text { cursor: default; text-decoration: none; user-select: text; }
+.clip-btn {
+  background: linear-gradient(to bottom,#f3ede0 0%,#e8e0d0 45%,#c9bfa8 100%);
+  border: 1px outset #b8ac90; border-radius: 2px;
+  width: 28px; height: 24px; display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer; color: #003C74; flex-shrink: 0;
+  box-shadow: 1px 1px 0 #fff inset, -1px -1px 0 #8a7f68 inset;
+  margin-left: auto; /* bleibt */
+  position: relative;
+  z-index: 1;
+}
+.clip-btn:hover { filter: brightness(1.08); }
+.clip-btn:active { box-shadow: inset 1px 1px 2px rgba(0,0,0,0.4); }
+.clip-btn.copied { background: linear-gradient(to bottom,#9fdc86,#4fae3a); border-color: #2f8010; color: #fff; }
+.email-xp { position: relative; flex-wrap: nowrap; } /* überschreibt das wrap nur dort */
+.copy-toast {
+  position: absolute;
+  right: 44px; /* Platz rechts neben dem Button */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px; color: #0a7a1e; font-weight: bold;
+  opacity: 0; transition: opacity 0.2s ease;
+  white-space: nowrap; pointer-events: none;
+}
+.copy-toast.show { opacity: 1; }
 #mobile-bar { position: fixed; top: 0; left: 0; right: 0; height: 36px; background: linear-gradient(to bottom, #1f5ba6 0%, #3a8be8 4%, #2b6fcd 6%, #2464c0 50%, #1a56b0 95%, #0e3d8c 100%); border-bottom: 1px solid #0b3d8a; display: flex; align-items: center; padding: 0 6px; z-index: 9000; box-shadow: 0 2px 6px rgba(0,0,0,0.4); gap: 6px; }
 #mob-menu-btn { background: linear-gradient(to bottom, #5db33d 0%, #3d9c1e 50%, #2f8010 100%); border: 1px solid #1e6005; border-radius: 8px; color: #fff; font-family: Tahoma, Arial, sans-serif; font-size: 13px; font-weight: bold; padding: 2px 10px; cursor: pointer; white-space: nowrap; }
 #mob-title { color: #fff; font-size: 11px; font-family: Tahoma, Arial, sans-serif; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
@@ -205,7 +346,7 @@ body {
 #mob-avatar img{ width:100%; height:100%; object-fit:cover; }
 #mob-name { color:#fff; font-weight:bold; font-size:14px; text-shadow:1px 1px 2px rgba(0,0,0,0.6); }
 #mob-handle { color:rgba(255,255,255,0.75); font-size:11px; font-family:"Courier New",monospace; }
-#mob-x { margin-left: auto; background: linear-gradient(to bottom,#e05050,#b81414); border: 1px solid rgba(0,0,0,0.4); color: #fff; width: 26px; height: 26px; border-radius: 3px; font-size: 13px; font-weight: bold; cursor: pointer; flex-shrink: 0; }
+#mob-x { margin-left: auto; background: linear-gradient(to bottom,#f0a0a0,#e05050 45%,#c31c1c 55%,#a01010); border: 1px solid rgba(0,0,0,0.4); color: #fff; width: 26px; height: 26px; border-radius: 2px; font-size: 13px; font-weight: bold; cursor: pointer; flex-shrink: 0; }
 #mob-body { flex: 1; overflow-y: auto; padding: 8px 0; }
 .mob-section-label { font-size: 10px; font-weight: bold; color: #555; padding: 6px 14px 3px; letter-spacing: 0.07em; }
 .mob-divider { height: 1px; background: linear-gradient(to right, #a0a0a0, transparent); margin: 6px 0; }
@@ -219,8 +360,90 @@ body {
   body { padding-bottom: 0; padding-top: 48px; }
   #hero-win .win-body { grid-template-columns: 1fr; }
   #photo-box { width: 110px; height: 110px; margin: 0 auto 10px auto; }
-  .skill-grid { grid-template-columns: 1fr; }
   #proj-grid { grid-template-columns: repeat(auto-fill, minmax(130px,1fr)); }
+
+  /* Skill tree → accordion list on mobile (no tree look) */
+  #st-canvas { padding: 4px 0 8px; overflow-x: visible; }
+  #st-svg { display: none !important; }
+  #st-root-wrap { margin-bottom: 10px; }
+  #st-root { font-size: 13px; padding: 6px 16px; }
+  #st-categories {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 6px;
+    justify-content: flex-start;
+  }
+  .st-category {
+    align-items: stretch;
+    gap: 0;
+    flex: none;
+    width: 100%;
+    max-width: none;
+    background: #ECE9D8;
+    border: 1px solid #808080;
+    border-radius: 3px;
+    box-shadow: 1px 1px 0 #fff inset, -1px -1px 0 #a0a0a0 inset;
+    overflow: hidden;
+  }
+  .st-cat-node {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    max-width: none;
+    text-align: left;
+    padding: 8px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid transparent;
+    box-shadow: none;
+    background: linear-gradient(to bottom, #f3ede0 0%, #e0d8c4 100%);
+    user-select: none;
+  }
+  .st-cat-node:active {
+    background: linear-gradient(to bottom, #d8d0bc 0%, #c8c0ac 100%);
+  }
+  .st-cat-toggle {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+    font-size: 10px;
+    font-weight: bold;
+    color: #003C74;
+    background: linear-gradient(to bottom, #f8f4e8, #d4cbb4);
+    border: 1px outset #b8ac90;
+    border-radius: 2px;
+    line-height: 1;
+  }
+  .st-category.open .st-cat-node {
+    border-bottom-color: #b0a898;
+    background: linear-gradient(to bottom, #e8e0d0 0%, #d4cbb4 100%);
+  }
+  .st-leaf-list {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    max-width: none;
+    padding: 6px 8px 8px;
+    background: #f5f2e8;
+  }
+  .st-category.open .st-leaf-list {
+    display: flex;
+  }
+  .st-leaf-node {
+    text-align: left;
+    font-size: 11px;
+    padding: 5px 8px;
+    background: #fff;
+    border: 2px inset #888;
+  }
 }
 @media (min-width: 601px) {
   #mobile-bar, #mob-drawer, #mob-overlay, #mob-lang-menu { display: none !important; }
@@ -232,11 +455,11 @@ body {
 <!-- HERO -->
 <div class="win" id="hero-win">
   <div class="win-title">
-    <span class="win-icon">👤</span>
+    <span class="win-icon"><svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
     <span class="win-label" data-i18n="hero.winTitle"></span>
     <div class="win-btns">
-      <button class="wb wb-min" onclick="toggleWin('hero-win')">_</button>
-      <button class="wb wb-max">□</button>
+      <button class="wb wb-min" onclick="minimizeWin('hero-win')">_</button>
+      <button class="wb wb-max" onclick="maximizeWin('hero-win')">□</button>
       <button class="wb wb-close">✕</button>
     </div>
   </div>
@@ -250,24 +473,24 @@ body {
      loading="lazy" decoding="async"
      style="width:120px;height:120px;object-fit:cover">
       <div id="photo-fallback" style="display:none; flex-direction:column; align-items:center; justify-content:center; width:100%; height:100%; gap:6px;">
-        <span class="ph-icon">🖼</span>
+        <span class="ph-icon"><svg class="ico" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span>
         <span>pb.jpg</span>
         <small>hier platzieren</small>
       </div>
     </div>
     <div class="hero-info">
       <h1>Moritz Scholz</h1>
-      <div class="handle">@legaltechde · 🇩🇪 <span data-i18n="hero.country"></span></div>
+      <div class="handle">@legaltechde · <span class="handle-flag"><svg class="flag-svg" viewBox="0 0 12 8" width="14" height="10" aria-hidden="true"><rect width="12" height="2.67" y="0" fill="#000"/><rect width="12" height="2.67" y="2.67" fill="#D00"/><rect width="12" height="2.66" y="5.34" fill="#FFCE00"/></svg></span> <span data-i18n="hero.country"></span></div>
       <div class="badge-row">
-        <span class="badge" data-i18n="hero.badge1"></span>
-        <span class="badge" data-i18n="hero.badge2"></span>
-        <span class="badge" data-i18n="hero.badge3"></span>
-        <span class="badge" data-i18n="hero.badge4"></span>
+        <span class="badge"><span class="badge-ico"><svg class="ico" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 8h14"/><path d="M5 8l-2 6h4l-2-6"/><path d="M19 8l-2 6h4l-2-6"/><path d="M9 21h6"/></svg></span><span data-i18n="hero.badge1"></span></span>
+        <span class="badge"><span class="badge-ico"><svg class="ico" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></span><span data-i18n="hero.badge2"></span></span>
+        <span class="badge"><span class="badge-ico"><svg class="ico" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span><span data-i18n="hero.badge3"></span></span>
+        <span class="badge"><span class="badge-ico"><svg class="ico" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="10" rx="2"/><path d="M12 8V5"/><circle cx="9" cy="13" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="13" r="1" fill="currentColor" stroke="none"/><path d="M8 18v2"/><path d="M16 18v2"/></svg></span><span data-i18n="hero.badge4"></span></span>
       </div>
       <div class="badge-row">
-        <span class="badge">🇩🇪 DE</span>
-        <span class="badge">🇬🇧 EN</span>
-        <span class="badge">🇷🇺 RU</span>
+        <span class="badge"><svg class="flag-svg" viewBox="0 0 12 8" width="14" height="10" aria-hidden="true"><rect width="12" height="2.67" y="0" fill="#000"/><rect width="12" height="2.67" y="2.67" fill="#D00"/><rect width="12" height="2.66" y="5.34" fill="#FFCE00"/></svg> DE</span>
+        <span class="badge"><svg class="flag-svg" viewBox="0 0 12 8" width="14" height="10" aria-hidden="true"><rect width="12" height="8" fill="#012169"/><path d="M0,0 L12,8 M12,0 L0,8" stroke="#fff" stroke-width="1.6"/><path d="M0,0 L12,8 M12,0 L0,8" stroke="#C8102E" stroke-width="1"/><path d="M6,0 V8 M0,4 H12" stroke="#fff" stroke-width="2.4"/><path d="M6,0 V8 M0,4 H12" stroke="#C8102E" stroke-width="1.4"/></svg> EN</span>
+        <span class="badge"><svg class="flag-svg" viewBox="0 0 12 8" width="14" height="10" aria-hidden="true"><rect width="12" height="2.67" y="0" fill="#fff"/><rect width="12" height="2.67" y="2.67" fill="#0039A6"/><rect width="12" height="2.66" y="5.34" fill="#D52B1E"/></svg> RU</span>
       </div>
 <!--       <div class="status-bar"><span class="status-led"></span><span data-i18n="hero.status"></span></div> -->
     </div>
@@ -277,16 +500,16 @@ body {
 <!-- ABOUT -->
 <div class="win" id="about-win">
   <div class="win-title">
-    <span class="win-icon">ℹ</span>
+    <span class="win-icon"><svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
     <span class="win-label" data-i18n="about.winTitle"></span>
     <div class="win-btns">
-      <button class="wb wb-min" onclick="toggleWin('about-win')">_</button>
-      <button class="wb wb-max">□</button>
+      <button class="wb wb-min" onclick="minimizeWin('about-win')">_</button>
+      <button class="wb wb-max" onclick="maximizeWin('about-win')">□</button>
       <button class="wb wb-close">✕</button>
     </div>
   </div>
   <div class="win-body">
-    <span class="sec-label" data-i18n="about.secLabel"></span>
+    <!-- <span class="sec-label" data-i18n="about.secLabel"></span> -->
     <div class="inset">
       <div class="about-text">
         <p data-i18n="about.p1"></p>
@@ -300,50 +523,54 @@ body {
 <!-- SERVICES -->
 <div class="win" id="svc-win">
   <div class="win-title">
-    <span class="win-icon">☑️</span>
+    <span class="win-icon"><svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14l4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/><circle cx="12" cy="14" r="1.5" fill="currentColor" stroke="none"/></svg></span>
     <span class="win-label" data-i18n="svc.winTitle"></span>
     <div class="win-btns">
-      <button class="wb wb-min" onclick="toggleWin('svc-win')">_</button>
-      <button class="wb wb-max">□</button>
+      <button class="wb wb-min" onclick="minimizeWin('svc-win')">_</button>
+      <button class="wb wb-max" onclick="maximizeWin('svc-win')">□</button>
       <button class="wb wb-close">✕</button>
     </div>
   </div>
   <div class="win-body">
-    <span class="sec-label" data-i18n="svc.secLabel"></span>
+    <!-- <span class="sec-label" data-i18n="svc.secLabel"></span> -->
     <ul class="svc-list inset" style="margin-top:10px" id="svc-list-el"></ul>
   </div>
 </div>
 
-<!-- SKILLS -->
+<!-- SKILLS / SKILL TREE -->
 <div class="win" id="skills-win">
   <div class="win-title">
-    <span class="win-icon">🔧</span>
+    <span class="win-icon"><svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span>
     <span class="win-label" data-i18n="skills.winTitle"></span>
     <div class="win-btns">
-      <button class="wb wb-min" onclick="toggleWin('skills-win')">_</button>
-      <button class="wb wb-max">□</button>
+      <button class="wb wb-min" onclick="minimizeWin('skills-win')">_</button>
+      <button class="wb wb-max" onclick="maximizeWin('skills-win')">□</button>
       <button class="wb wb-close">✕</button>
     </div>
   </div>
   <div class="win-body">
-    <span class="sec-label" data-i18n="skills.secLabel"></span>
-    <div class="skill-grid" style="margin-top:10px" id="skills-grid-el"></div>
+    <!-- <span class="sec-label" data-i18n="skills.secLabel"></span> -->
+    <div id="st-canvas" style="margin-top:10px">
+      <svg id="st-svg"></svg>
+      <!-- <div id="st-root-wrap"><div id="st-root">Moritz</div></div> -->
+      <div id="st-categories"></div>
+    </div>
   </div>
 </div>
 
 <!-- EXPERIENCE -->
 <div class="win" id="exp-win">
   <div class="win-title">
-    <span class="win-icon">💼</span>
+    <span class="win-icon"><svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
     <span class="win-label" data-i18n="exp.winTitle"></span>
     <div class="win-btns">
-      <button class="wb wb-min" onclick="toggleWin('exp-win')">_</button>
-      <button class="wb wb-max">□</button>
+      <button class="wb wb-min" onclick="minimizeWin('exp-win')">_</button>
+      <button class="wb wb-max" onclick="maximizeWin('exp-win')">□</button>
       <button class="wb wb-close">✕</button>
     </div>
   </div>
   <div class="win-body">
-    <span class="sec-label" data-i18n="exp.secLabel"></span>
+    <!-- <span class="sec-label" data-i18n="exp.secLabel"></span> -->
     <div style="margin-top:10px">
       <div class="exp-block">
         <div class="exp-title" data-i18n="exp.jobTitle"></div>
@@ -357,19 +584,19 @@ body {
 <!-- EDUCATION -->
 <div class="win" id="edu-win">
   <div class="win-title">
-    <span class="win-icon">🎓</span>
+    <span class="win-icon"><svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
     <span class="win-label" data-i18n="edu.winTitle"></span>
     <div class="win-btns">
-      <button class="wb wb-min" onclick="toggleWin('edu-win')">_</button>
-      <button class="wb wb-max">□</button>
+      <button class="wb wb-min" onclick="minimizeWin('edu-win')">_</button>
+      <button class="wb wb-max" onclick="maximizeWin('edu-win')">□</button>
       <button class="wb wb-close">✕</button>
     </div>
   </div>
   <div class="win-body">
-    <span class="sec-label" data-i18n="edu.secLabel"></span>
+    <!-- <span class="sec-label" data-i18n="edu.secLabel"></span> -->
     <div class="inset" style="margin-top:8px; margin-bottom:14px;">
       <div class="edu-block">
-        <span class="edu-icon">⚖️</span>
+        <span class="edu-icon"><svg class="ico" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 8h14"/><path d="M5 8l-2 6h4l-2-6"/><path d="M19 8l-2 6h4l-2-6"/><path d="M9 21h6"/></svg></span>
         <div>
           <div class="edu-degree" data-i18n="edu.degree"></div>
           <div class="edu-meta" data-i18n="edu.meta"></div>
@@ -377,11 +604,11 @@ body {
       </div>
     </div>
     <hr class="win-divider">
-    <span class="sec-label" data-i18n="edu.langSecLabel"></span>
+    <!-- <span class="sec-label" data-i18n="edu.langSecLabel"></span> -->
     <div class="lang-row" style="margin-top:8px;">
-      <div class="lang-card"><span class="lang-flag">🇩🇪</span><div><div style="font-weight:bold" data-i18n="edu.lang1name"></div><div style="font-size:10px;color:#555" data-i18n="edu.lang1level"></div></div></div>
-      <div class="lang-card"><span class="lang-flag">🇬🇧</span><div><div style="font-weight:bold" data-i18n="edu.lang2name"></div><div style="font-size:10px;color:#555" data-i18n="edu.lang2level"></div></div></div>
-      <div class="lang-card"><span class="lang-flag">🇷🇺</span><div><div style="font-weight:bold" data-i18n="edu.lang3name"></div><div style="font-size:10px;color:#555" data-i18n="edu.lang3level"></div></div></div>
+      <div class="lang-card"><span class="lang-flag"><svg class="flag-svg" viewBox="0 0 12 8" width="18" height="12" aria-hidden="true"><rect width="12" height="2.67" y="0" fill="#000"/><rect width="12" height="2.67" y="2.67" fill="#D00"/><rect width="12" height="2.66" y="5.34" fill="#FFCE00"/></svg></span><div><div style="font-weight:bold" data-i18n="edu.lang1name"></div><div style="font-size:10px;color:#555" data-i18n="edu.lang1level"></div></div></div>
+      <div class="lang-card"><span class="lang-flag"><svg class="flag-svg" viewBox="0 0 12 8" width="18" height="12" aria-hidden="true"><rect width="12" height="8" fill="#012169"/><path d="M0,0 L12,8 M12,0 L0,8" stroke="#fff" stroke-width="1.6"/><path d="M0,0 L12,8 M12,0 L0,8" stroke="#C8102E" stroke-width="1"/><path d="M6,0 V8 M0,4 H12" stroke="#fff" stroke-width="2.4"/><path d="M6,0 V8 M0,4 H12" stroke="#C8102E" stroke-width="1.4"/></svg></span><div><div style="font-weight:bold" data-i18n="edu.lang2name"></div><div style="font-size:10px;color:#555" data-i18n="edu.lang2level"></div></div></div>
+      <div class="lang-card"><span class="lang-flag"><svg class="flag-svg" viewBox="0 0 12 8" width="18" height="12" aria-hidden="true"><rect width="12" height="2.67" y="0" fill="#fff"/><rect width="12" height="2.67" y="2.67" fill="#0039A6"/><rect width="12" height="2.66" y="5.34" fill="#D52B1E"/></svg></span><div><div style="font-weight:bold" data-i18n="edu.lang3name"></div><div style="font-size:10px;color:#555" data-i18n="edu.lang3level"></div></div></div>
     </div>
   </div>
 </div>
@@ -389,16 +616,16 @@ body {
 <!-- PROJECTS -->
 <div class="win" id="proj-win">
   <div class="win-title">
-    <span class="win-icon">📁</span>
+    <span class="win-icon"><svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span>
     <span class="win-label" data-i18n="proj.winTitle"></span>
     <div class="win-btns">
-      <button class="wb wb-min" onclick="toggleWin('proj-win')">_</button>
-      <button class="wb wb-max">□</button>
+      <button class="wb wb-min" onclick="minimizeWin('proj-win')">_</button>
+      <button class="wb wb-max" onclick="maximizeWin('proj-win')">□</button>
       <button class="wb wb-close">✕</button>
     </div>
   </div>
   <div class="win-body">
-    <span class="sec-label" data-i18n="proj.secLabel"></span>
+    <!-- <span class="sec-label" data-i18n="proj.secLabel"></span> -->
     <div id="proj-grid">
       <div class="proj-item"
            data-img=""
@@ -414,30 +641,39 @@ body {
   </div>
 </div>
 
-<!-- CONTACT - JETZT EMAIL XP STYLE -->
+<!-- CONTACT -->
 <div class="win" id="contact-win">
   <div class="win-title">
-    <span class="win-icon">✉️</span>
+    <span class="win-icon"><svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
     <span class="win-label" data-i18n="contact.winTitle"></span>
     <div class="win-btns">
-      <button class="wb wb-min" onclick="toggleWin('contact-win')">_</button>
-      <button class="wb wb-max">□</button>
+      <button class="wb wb-min" onclick="minimizeWin('contact-win')">_</button>
+      <button class="wb wb-max" onclick="maximizeWin('contact-win')">□</button>
       <button class="wb wb-close">✕</button>
     </div>
   </div>
   <div class="win-body">
-    <span class="sec-label" data-i18n="contact.secLabel"></span>
+    <!-- <span class="sec-label" data-i18n="contact.secLabel"></span> -->
     <div class="inset" style="margin-top:10px;">
       <div style="display:flex; flex-direction:column; gap:8px;">
         <div class="email-xp">
-          <span class="email-xp-ico">📧</span>
-          <div>
+          <span class="email-xp-ico"><svg class="ico" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+          <div style="flex:1; min-width:150px;">
             <div style="font-weight:bold; font-family:Tahoma; font-size:12px;" data-i18n="contact.emailLabel"></div>
-            <div style="font-size:13px; color:#003C74; font-weight:bold;">legaltechde@mail.de</div>
+            <span id="email-text">legaltechde@mail.de</span>
           </div>
+          <button id="email-copy-btn" class="clip-btn" onclick="copyEmail()">
+            <span class="clip-icon-copy" style="display:inline-flex;">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path></svg>
+            </span>
+            <span class="clip-icon-check" style="display:none;">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </span>
+          </button>
+          <span id="email-copy-toast" class="copy-toast"></span>
         </div>
         <div class="email-xp">
-          <span class="email-xp-ico">🌐</span>
+          <span class="email-xp-ico"><svg class="ico" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
           <div>
             <div style="font-weight:bold; font-family:Tahoma; font-size:12px;" data-i18n="contact.webLabel"></div>
             <div style="font-size:12px;">legaltechde.github.io</div>
@@ -455,30 +691,30 @@ body {
 
 <!-- DESKTOP START MENU -->
 <div id="start-menu">
-  <div id="sm-header"><div id="sm-avatar"><img id="sm-avatar-img" src="pb.jpg" alt="" onerror="this.style.display='none'; this.parentElement.textContent='👤';"> </div><div id="sm-username">Moritz Scholz</div></div>
+  <div id="sm-header"><div id="sm-avatar"><img id="sm-avatar-img" src="pb.jpg" alt="" onerror="this.style.display='none'; this.parentElement.innerHTML='<svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';"> </div><div id="sm-username">Moritz Scholz</div></div>
   <div id="sm-body">
     <div id="sm-left">
       <div class="sm-label" data-i18n="menu.openLabel"></div>
       <div class="sm-divider"></div>
-      <div class="sm-item" onclick="jumpTo('hero-win')">  <span class="sm-ico">👤</span><span data-i18n="menu.w.hero"></span></div>
-      <div class="sm-item" onclick="jumpTo('about-win')"> <span class="sm-ico">ℹ</span><span data-i18n="menu.w.about"></span></div>
-      <div class="sm-item" onclick="jumpTo('svc-win')">   <span class="sm-ico">☑️</span><span data-i18n="menu.w.svc"></span></div>
-      <div class="sm-item" onclick="jumpTo('skills-win')"><span class="sm-ico">🔧</span><span data-i18n="menu.w.skills"></span></div>
-      <div class="sm-item" onclick="jumpTo('exp-win')">   <span class="sm-ico">💼</span><span data-i18n="menu.w.exp"></span></div>
-      <div class="sm-item" onclick="jumpTo('edu-win')">   <span class="sm-ico">🎓</span><span data-i18n="menu.w.edu"></span></div>
-      <div class="sm-item" onclick="jumpTo('proj-win')">  <span class="sm-ico">📁</span><span data-i18n="menu.w.proj"></span></div>
-      <div class="sm-item" onclick="jumpTo('contact-win')"><span class="sm-ico">✉️</span><span data-i18n="menu.w.contact"></span></div>
+      <div class="sm-item" onclick="jumpTo('hero-win')"><span class="sm-ico"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span data-i18n="menu.w.hero"></span></div>
+      <div class="sm-item" onclick="jumpTo('about-win')"><span class="sm-ico"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span><span data-i18n="menu.w.about"></span></div>
+      <div class="sm-item" onclick="jumpTo('svc-win')"><span class="sm-ico"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14l4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/><circle cx="12" cy="14" r="1.5" fill="currentColor" stroke="none"/></svg></span><span data-i18n="menu.w.svc"></span></div>
+      <div class="sm-item" onclick="jumpTo('skills-win')"><span class="sm-ico"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span><span data-i18n="menu.w.skills"></span></div>
+      <div class="sm-item" onclick="jumpTo('exp-win')"><span class="sm-ico"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span data-i18n="menu.w.exp"></span></div>
+      <div class="sm-item" onclick="jumpTo('edu-win')"><span class="sm-ico"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span><span data-i18n="menu.w.edu"></span></div>
+      <div class="sm-item" onclick="jumpTo('proj-win')"><span class="sm-ico"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span><span data-i18n="menu.w.proj"></span></div>
+      <div class="sm-item" onclick="jumpTo('contact-win')"><span class="sm-ico"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span><span data-i18n="menu.w.contact"></span></div>
       <div class="sm-divider"></div>
-      <div class="sm-item sm-all" onclick="restoreAll()"> <span class="sm-ico">🔄</span><span data-i18n="menu.restoreAll"></span></div>
+      <div class="sm-item sm-all" onclick="restoreAll()"><span class="sm-ico"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></span><span data-i18n="menu.restoreAll"></span></div>
     </div>
     <div id="sm-right">
       <div class="sm-label" data-i18n="menu.quickLabel"></div>
       <div class="sm-divider"></div>
-      <div class="sm-ritem" onclick="jumpTo('hero-win')">   <span class="sm-ico">👤</span><span data-i18n="menu.q.hero"></span></div>
-      <div class="sm-ritem" onclick="jumpTo('svc-win')">    <span class="sm-ico">☑️</span><span data-i18n="menu.q.svc"></span></div>
-      <div class="sm-ritem" onclick="jumpTo('contact-win')"><span class="sm-ico">✉️</span><span data-i18n="menu.q.contact"></span></div>
+      <div class="sm-ritem" onclick="jumpTo('hero-win')"><span class="sm-ico"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span data-i18n="menu.q.hero"></span></div>
+      <div class="sm-ritem" onclick="jumpTo('svc-win')"><span class="sm-ico"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14l4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/><circle cx="12" cy="14" r="1.5" fill="currentColor" stroke="none"/></svg></span><span data-i18n="menu.q.svc"></span></div>
+      <div class="sm-ritem" onclick="jumpTo('contact-win')"><span class="sm-ico"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span><span data-i18n="menu.q.contact"></span></div>
       <div class="sm-divider"></div>
-      <a class="sm-ritem" href="mailto:legaltechde@mail.de"><span class="sm-ico">✉️</span><span data-i18n="menu.email"></span></a>
+      <a class="sm-ritem" href="mailto:legaltechde@mail.de"><span class="sm-ico"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span><span data-i18n="menu.email"></span></a>
     </div>
   </div>
   <div id="sm-footer"><button id="sm-close-btn" onclick="closeStartMenu()" data-i18n="menu.close"></button></div>
@@ -487,82 +723,82 @@ body {
 <!-- DESKTOP LANG MENU -->
 <div id="lang-menu">
   <div class="lang-menu-title" data-i18n="langmenu.title"></div>
-  <div class="lang-opt" data-lang="de" onclick="setLang('de')"><span class="lang-opt-flag">🇩🇪</span><span class="lang-opt-code">DE</span><span class="lang-opt-name">Deutsch</span></div>
-  <div class="lang-opt" data-lang="en" onclick="setLang('en')"><span class="lang-opt-flag">🇬🇧</span><span class="lang-opt-code">EN</span><span class="lang-opt-name">English</span></div>
-  <div class="lang-opt" data-lang="ru" onclick="setLang('ru')"><span class="lang-opt-flag">🇷🇺</span><span class="lang-opt-code">RU</span><span class="lang-opt-name">Русский</span></div>
+  <div class="lang-opt" data-lang="de" onclick="setLang('de')"><span class="lang-opt-flag"><svg class="flag-svg" viewBox="0 0 12 8" width="18" height="12" aria-hidden="true"><rect width="12" height="2.67" y="0" fill="#000"/><rect width="12" height="2.67" y="2.67" fill="#D00"/><rect width="12" height="2.66" y="5.34" fill="#FFCE00"/></svg></span><span class="lang-opt-code">DE</span><span class="lang-opt-name">Deutsch</span></div>
+  <div class="lang-opt" data-lang="en" onclick="setLang('en')"><span class="lang-opt-flag"><svg class="flag-svg" viewBox="0 0 12 8" width="18" height="12" aria-hidden="true"><rect width="12" height="8" fill="#012169"/><path d="M0,0 L12,8 M12,0 L0,8" stroke="#fff" stroke-width="1.6"/><path d="M0,0 L12,8 M12,0 L0,8" stroke="#C8102E" stroke-width="1"/><path d="M6,0 V8 M0,4 H12" stroke="#fff" stroke-width="2.4"/><path d="M6,0 V8 M0,4 H12" stroke="#C8102E" stroke-width="1.4"/></svg></span><span class="lang-opt-code">EN</span><span class="lang-opt-name">English</span></div>
+  <div class="lang-opt" data-lang="ru" onclick="setLang('ru')"><span class="lang-opt-flag"><svg class="flag-svg" viewBox="0 0 12 8" width="18" height="12" aria-hidden="true"><rect width="12" height="2.67" y="0" fill="#fff"/><rect width="12" height="2.67" y="2.67" fill="#0039A6"/><rect width="12" height="2.66" y="5.34" fill="#D52B1E"/></svg></span><span class="lang-opt-code">RU</span><span class="lang-opt-name">Русский</span></div>
 </div>
 
 <!-- MOBILE LANG MENU -->
 <div id="mob-lang-menu">
   <div class="lang-menu-title" data-i18n="langmenu.title" style="background:linear-gradient(to right,#0054E3,#2882E4,#003C9B);color:#fff;font-size:11px;font-weight:bold;padding:4px 10px;"></div>
-  <div class="lang-opt" data-lang="de" onclick="setLang('de');closeMobLang()"><span class="lang-opt-flag">🇩🇪</span><span class="lang-opt-code">DE</span><span class="lang-opt-name">Deutsch</span></div>
-  <div class="lang-opt" data-lang="en" onclick="setLang('en');closeMobLang()"><span class="lang-opt-flag">🇬🇧</span><span class="lang-opt-code">EN</span><span class="lang-opt-name">English</span></div>
-  <div class="lang-opt" data-lang="ru" onclick="setLang('ru');closeMobLang()"><span class="lang-opt-flag">🇷🇺</span><span class="lang-opt-code">RU</span><span class="lang-opt-name">Русский</span></div>
+  <div class="lang-opt" data-lang="de" onclick="setLang('de');closeMobLang()"><span class="lang-opt-flag"><svg class="flag-svg" viewBox="0 0 12 8" width="18" height="12" aria-hidden="true"><rect width="12" height="2.67" y="0" fill="#000"/><rect width="12" height="2.67" y="2.67" fill="#D00"/><rect width="12" height="2.66" y="5.34" fill="#FFCE00"/></svg></span><span class="lang-opt-code">DE</span><span class="lang-opt-name">Deutsch</span></div>
+  <div class="lang-opt" data-lang="en" onclick="setLang('en');closeMobLang()"><span class="lang-opt-flag"><svg class="flag-svg" viewBox="0 0 12 8" width="18" height="12" aria-hidden="true"><rect width="12" height="8" fill="#012169"/><path d="M0,0 L12,8 M12,0 L0,8" stroke="#fff" stroke-width="1.6"/><path d="M0,0 L12,8 M12,0 L0,8" stroke="#C8102E" stroke-width="1"/><path d="M6,0 V8 M0,4 H12" stroke="#fff" stroke-width="2.4"/><path d="M6,0 V8 M0,4 H12" stroke="#C8102E" stroke-width="1.4"/></svg></span><span class="lang-opt-code">EN</span><span class="lang-opt-name">English</span></div>
+  <div class="lang-opt" data-lang="ru" onclick="setLang('ru');closeMobLang()"><span class="lang-opt-flag"><svg class="flag-svg" viewBox="0 0 12 8" width="18" height="12" aria-hidden="true"><rect width="12" height="2.67" y="0" fill="#fff"/><rect width="12" height="2.67" y="2.67" fill="#0039A6"/><rect width="12" height="2.66" y="5.34" fill="#D52B1E"/></svg></span><span class="lang-opt-code">RU</span><span class="lang-opt-name">Русский</span></div>
 </div>
 
 <!-- MOBILE OVERLAY + DRAWER -->
 <div id="mob-overlay" onclick="closeMobileMenu()"></div>
 <div id="mob-drawer">
   <div id="mob-header">
-    <div id="mob-avatar"><img src="pb.jpg" alt="" onerror="this.style.display='none'; this.parentElement.textContent='👤';" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div id="mob-avatar"><img src="pb.jpg" alt="" onerror="this.style.display='none'; this.parentElement.innerHTML='<svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';" style="width:100%;height:100%;object-fit:cover;"></div>
     <div><div id="mob-name">Moritz Scholz</div><div id="mob-handle">@legaltechde</div></div>
     <button id="mob-x" onclick="closeMobileMenu()">✕</button>
   </div>
   <div id="mob-body">
     <div class="mob-section-label" data-i18n="menu.openLabel"></div>
-    <div class="mob-item" onclick="jumpTo('hero-win')">  <span class="mob-ico">👤</span><span data-i18n="menu.w.hero"></span></div>
-    <div class="mob-item" onclick="jumpTo('about-win')"> <span class="mob-ico">ℹ</span><span data-i18n="menu.w.about"></span></div>
-    <div class="mob-item" onclick="jumpTo('svc-win')">   <span class="mob-ico">☑️</span><span data-i18n="menu.w.svc"></span></div>
-    <div class="mob-item" onclick="jumpTo('skills-win')"><span class="mob-ico">🔧</span><span data-i18n="menu.w.skills"></span></div>
-    <div class="mob-item" onclick="jumpTo('exp-win')">   <span class="mob-ico">💼</span><span data-i18n="menu.w.exp"></span></div>
-    <div class="mob-item" onclick="jumpTo('edu-win')">   <span class="mob-ico">🎓</span><span data-i18n="menu.w.edu"></span></div>
-    <div class="mob-item" onclick="jumpTo('proj-win')">  <span class="mob-ico">📁</span><span data-i18n="menu.w.proj"></span></div>
-    <div class="mob-item" onclick="jumpTo('contact-win')"><span class="mob-ico">✉️️</span><span data-i18n="menu.w.contact"></span></div>
+    <div class="mob-item" onclick="jumpTo('hero-win')"><span class="mob-ico"><svg class="ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span data-i18n="menu.w.hero"></span></div>
+    <div class="mob-item" onclick="jumpTo('about-win')"><span class="mob-ico"><svg class="ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span><span data-i18n="menu.w.about"></span></div>
+    <div class="mob-item" onclick="jumpTo('svc-win')"><span class="mob-ico"><svg class="ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14l4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/><circle cx="12" cy="14" r="1.5" fill="currentColor" stroke="none"/></svg></span><span data-i18n="menu.w.svc"></span></div>
+    <div class="mob-item" onclick="jumpTo('skills-win')"><span class="mob-ico"><svg class="ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></span><span data-i18n="menu.w.skills"></span></div>
+    <div class="mob-item" onclick="jumpTo('exp-win')"><span class="mob-ico"><svg class="ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span data-i18n="menu.w.exp"></span></div>
+    <div class="mob-item" onclick="jumpTo('edu-win')"><span class="mob-ico"><svg class="ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span><span data-i18n="menu.w.edu"></span></div>
+    <div class="mob-item" onclick="jumpTo('proj-win')"><span class="mob-ico"><svg class="ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span><span data-i18n="menu.w.proj"></span></div>
+    <div class="mob-item" onclick="jumpTo('contact-win')"><span class="mob-ico"><svg class="ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span><span data-i18n="menu.w.contact"></span></div>
     <div class="mob-divider"></div>
     <div class="mob-section-label" data-i18n="menu.actionsLabel"></div>
-    <div class="mob-item mob-bold" onclick="restoreAll()"><span class="mob-ico">🔄</span><span data-i18n="menu.restoreAll"></span></div>
-    <a class="mob-item" href="mailto:legaltechde@mail.de"><span class="mob-ico">✉️️</span><span data-i18n="menu.email"></span></a>
+    <div class="mob-item mob-bold" onclick="restoreAll()"><span class="mob-ico"><svg class="ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></span><span data-i18n="menu.restoreAll"></span></div>
+    <a class="mob-item" href="mailto:legaltechde@mail.de"><span class="mob-ico"><svg class="ico" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span><span data-i18n="menu.email"></span></a>
   </div>
-  <div id="mob-footer">🕐 <span id="mob-clock">--:--</span></div>
+  <div id="mob-footer"><svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> <span id="mob-clock">--:--</span></div>
 </div>
 
 <!-- DESKTOP TASKBAR -->
 <div id="taskbar">
-  <button id="start-btn" onclick="toggleStartMenu()"><span class="flag">⊞</span> Start</button>
+  <button id="start-btn" onclick="toggleStartMenu()"><svg class="ico" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg> Start</button>
   <div id="tb-windows"></div>
   <button id="lang-btn" onclick="toggleLangMenu()">
-    <span id="lang-flag">🇩🇪</span><span id="lang-code">DE</span>
+    <span id="lang-flag"><svg class="flag-svg" viewBox="0 0 12 8" width="16" height="11" aria-hidden="true"><rect width="12" height="2.67" y="0" fill="#000"/><rect width="12" height="2.67" y="2.67" fill="#D00"/><rect width="12" height="2.66" y="5.34" fill="#FFCE00"/></svg></span><span id="lang-code">DE</span>
   </button>
   <div id="clock">--:--</div>
 </div>
 
 <!-- MOBILE TOP BAR -->
 <div id="mobile-bar">
-  <button id="mob-menu-btn" onclick="openMobileMenu()">☰ <span data-i18n="menu.menuBtn"></span></button>
+  <button id="mob-menu-btn" onclick="openMobileMenu()"><svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg> <span data-i18n="menu.menuBtn"></span></button>
   <span id="mob-title">Moritz Scholz · legaltechde</span>
-  <button id="mob-lang-btn" onclick="toggleMobLang()"><span id="mob-lang-flag">🇩🇪</span> <span id="mob-lang-code">DE</span></button>
+  <button id="mob-lang-btn" onclick="toggleMobLang()"><span id="mob-lang-flag"><svg class="flag-svg" viewBox="0 0 12 8" width="16" height="11" aria-hidden="true"><rect width="12" height="2.67" y="0" fill="#000"/><rect width="12" height="2.67" y="2.67" fill="#D00"/><rect width="12" height="2.66" y="5.34" fill="#FFCE00"/></svg></span> <span id="mob-lang-code">DE</span></button>
   <div id="mob-bar-clock">--:--</div>
 </div>
 
 <script>
 const i18n = {
   de: {
-    'hero.winTitle':   'Moritz Scholz – Profil – legaltechde',
+    'hero.winTitle':   'Profil',
     'hero.photoLabel': '',
     'hero.photoSub':   '',
     'hero.country':    'Deutschland',
-    'hero.badge1':     '⚖ Jurist (1. Staatsex.)',
-    'hero.badge2':     '💻 Entwickler',
-    'hero.badge3':     '📝 Lektor',
-    'hero.badge4':     '🤖 Prompt Engineer',
+    'hero.badge1':     'Jurist (1. Staatsex.)',
+    'hero.badge2':     'Entwickler',
+    'hero.badge3':     'Lektor',
+    'hero.badge4':     'Prompt Engineer',
     'hero.status':     'Online · Antwort < 1 Stunde · Diskret & termintreu',
-    'about.winTitle':  'Über mich – Info',
-    'about.secLabel':  'ÜBER MICH',
+    'about.winTitle':  'Über',
+    'about.secLabel':  'ÜBER',
     'about.p1':        'Ich bin Jurist (1. Staatsexamen, MLU Halle-Wittenberg) und Entwickler mit über drei Jahren Erfahrung an der Schnittstelle von Recht und Technologie.',
     'about.p2':        'Mein Fokus: präzise Rechtssprache verbunden mit funktionalem Code. Ich helfe dabei, juristische Workflows effizienter zu gestalten.',
     'about.p3':        'Keine Rechtsberatung nach RDG.',
-    'svc.winTitle':    'Tätigkeitsfelder - Schwerpunkte',
-    'svc.secLabel':    'TÄTIGKEITSFELDER',
+    'svc.winTitle':    'Leistungen',
+    'svc.secLabel':    'LEISTUNGEN',
     'svc.items': [
       { title: 'Lektorat DE',                       desc: 'Verträge, Gutachten, wissenschaftliche Arbeiten – sprachlich präzise und juristisch korrekt.' },
       { title: 'Business-Software',                 desc: 'Web-Apps, Python & Excel-Automatisierung, Konverter & Reports. DSGVO-konform entwickelt.' },
@@ -571,11 +807,9 @@ const i18n = {
       { title: 'PDF-Recherche & Datenaufbereitung', desc: '300+ Seiten analysieren, Daten extrahieren und grafisch aufbereiten.' },
       { title: 'Übersetzungen DE / EN / RU',        desc: 'Verträge & Schriftsätze – fachkundig in drei Sprachen.' },
     ],
-    'skills.winTitle': 'Skills & Expertise – Eigenschaften',
-    'skills.secLabel': 'FÄHIGKEITEN',
-    'skills.pro':      'PRO',
-    'skills.mid':      'MID',
-    'exp.winTitle':    'Berufserfahrung – Werdegang',
+    'skills.winTitle': 'Expertise',
+    'skills.secLabel': 'EXPERTISE',
+    'exp.winTitle':    'Erfahrung',
     'exp.secLabel':    'ERFAHRUNG',
     'exp.jobTitle':    'Rechtsservice',
     'exp.jobMeta':     'Nov. 2023 – Heute',
@@ -589,61 +823,63 @@ const i18n = {
       'Datenbanken eigenständig ausgelesen, befüllt und Ergebnisse grafisch aufbereitet',
       '300+ juristische Dokumente nach internen Vorgaben strukturiert und sortiert',
     ],
-    'edu.winTitle':     'Ausbildung & Sprachen',
-    'edu.secLabel':     'AUSBILDUNG',
+    'edu.winTitle':     'Bildung',
+    'edu.secLabel':     'BILDUNG',
     'edu.degree':       '1. Staatsexamen · Rechtswissenschaften',
     'edu.meta':         'Martin-Luther-Universität Halle-Wittenberg · Deutschland · Abschluss 2026',
     'edu.langSecLabel': 'SPRACHEN',
     'edu.lang1name':    'Deutsch',   'edu.lang1level': 'Muttersprache',
     'edu.lang2name':    'Englisch',  'edu.lang2level': 'Fließend',
     'edu.lang3name':    'Russisch',  'edu.lang3level': 'Grundkenntnisse',
-    'proj.winTitle':   'Projekte – Meine Arbeiten',
+    'proj.winTitle':   'Projekte',
     'proj.secLabel':   'PROJEKTE',
     'proj.clickHint':  '– per E-Mail anfragen',
-    'contact.winTitle':'Kontakt – Direktnachricht',
+    'contact.winTitle':'Kontakt',
     'contact.secLabel':'KONTAKT',
     'contact.headline':'Bereit zusammenzuarbeiten?',
     'contact.emailLabel':'E-Mail',
     'contact.webLabel':'Website',
-    'contact.btn':     '✉️  E-Mail schreiben',
+    'contact.btn':     'E-Mail schreiben',
     'contact.note':    'Antwort < 1 Stunde · Diskret · Termintreu · DSGVO-konform',
+    'contact.copyBtnTitle': 'E-Mail in Zwischenablage kopieren',
+    'contact.copied':  'Kopiert!',
     'menu.openLabel':   'Fenster öffnen / springen',
     'menu.quickLabel':  'Schnellzugriff',
     'menu.actionsLabel':'Aktionen',
     'menu.restoreAll':  'Alle wiederherstellen',
-    'menu.close':       '✕  Schließen',
+    'menu.close':       'Schließen',
     'menu.email':       'E-Mail schreiben',
     'menu.menuBtn':     'Menü',
     'menu.w.hero':      'Profil',
-    'menu.w.about':     'Über mich',
-    'menu.w.svc':       'Tätigkeitsfelder',
-    'menu.w.skills':    'Skills',
+    'menu.w.about':     'Über',
+    'menu.w.svc':       'Leistungen',
+    'menu.w.skills':    'Expertise',
     'menu.w.exp':       'Erfahrung',
-    'menu.w.edu':       'Ausbildung & Sprachen',
+    'menu.w.edu':       'Bildung',
     'menu.w.proj':      'Projekte',
     'menu.w.contact':   'Kontakt',
-    'menu.q.hero':      'Zu Profil scrollen',
-    'menu.q.svc':       'Zu Tätigkeitsfelder scrollen',
-    'menu.q.contact':   'Zu Kontakt scrollen',
+    'menu.q.hero':      'Profil',
+    'menu.q.svc':       'Leistungen',
+    'menu.q.contact':   'Kontakt',
     'langmenu.title':   'Sprache wählen',
   },
   en: {
-    'hero.winTitle':   'Moritz Scholz – Profile – legaltechde',
+    'hero.winTitle':   'Profile',
     'hero.photoLabel': '',
     'hero.photoSub':   '',
     'hero.country':    'Germany',
-    'hero.badge1':     '⚖ Jurist (1st State Exam)',
-    'hero.badge2':     '💻 Developer',
-    'hero.badge3':     '📝 Editor',
-    'hero.badge4':     '🤖 Prompt Engineer',
+    'hero.badge1':     'Jurist (1st State Exam)',
+    'hero.badge2':     'Developer',
+    'hero.badge3':     'Editor',
+    'hero.badge4':     'Prompt Engineer',
     'hero.status':     'Online · Response < 1 hour · Discreet & reliable',
-    'about.winTitle':  'About – Info',
-    'about.secLabel':  'ABOUT ME',
+    'about.winTitle':  'About',
+    'about.secLabel':  'ABOUT',
     'about.p1':        'I am a jurist (1st State Examination, MLU Halle-Wittenberg) and developer with over three years of experience at the intersection of law and technology.',
     'about.p2':        'My focus: precise legal language combined with functional code. I make legal workflows more efficient.',
     'about.p3':        'No legal advice under German RDG.',
-    'svc.winTitle':    'Practice Areas – Key Specializations',
-    'svc.secLabel':    'PRACTICE AREAS',
+    'svc.winTitle':    'Services',
+    'svc.secLabel':    'SERVICES',
     'svc.items': [
       { title: 'Proofreading / Editing DE',   desc: 'Contracts, expert opinions, academic papers – linguistically precise and legally correct.' },
       { title: 'Business Software',           desc: 'Web apps, Python & Excel automation, converters & reports. GDPR-compliant.' },
@@ -652,11 +888,9 @@ const i18n = {
       { title: 'PDF Research & Data Prep',    desc: 'Analyse 300+ pages, extract data and present it visually.' },
       { title: 'Translations DE / EN / RU',   desc: 'Contracts & legal documents – expert in three languages.' },
     ],
-    'skills.winTitle': 'Skills & Expertise – Properties',
-    'skills.secLabel': 'SKILLS',
-    'skills.pro':      'PRO',
-    'skills.mid':      'MID',
-    'exp.winTitle':    'Work Experience – Career',
+    'skills.winTitle': 'Expertise',
+    'skills.secLabel': 'EXPERTISE',
+    'exp.winTitle':    'Experience',
     'exp.secLabel':    'EXPERIENCE',
     'exp.jobTitle':    'Legal Services',
     'exp.jobMeta':     'Nov 2023 – Present',
@@ -670,7 +904,7 @@ const i18n = {
       'Independently read, populated databases and visualised results',
       'Structured and sorted 300+ legal documents according to internal guidelines',
     ],
-    'edu.winTitle':     'Education & Languages',
+    'edu.winTitle':     'Education',
     'edu.secLabel':     'EDUCATION',
     'edu.degree':       'First State Examination in Law (J.D. equivalent)',
     'edu.meta':         'Martin Luther University Halle-Wittenberg · Germany · Graduating 2026',
@@ -678,53 +912,55 @@ const i18n = {
     'edu.lang1name':    'German',    'edu.lang1level': 'Native',
     'edu.lang2name':    'English',   'edu.lang2level': 'Fluent',
     'edu.lang3name':    'Russian',   'edu.lang3level': 'Basic',
-    'proj.winTitle':   'Projects – My Work',
+    'proj.winTitle':   'Projects',
     'proj.secLabel':   'PROJECTS',
     'proj.clickHint':  '– request via e-mail',
-    'contact.winTitle':'Contact – Direct Message',
+    'contact.winTitle':'Contact',
     'contact.secLabel':'CONTACT',
     'contact.headline':'Ready to work together?',
     'contact.emailLabel':'E-Mail',
     'contact.webLabel':'Website',
-    'contact.btn':     '✉️  Write e-mail',
+    'contact.btn':     'Write e-mail',
     'contact.note':    'Response < 1 hour · Discreet · Reliable · GDPR-compliant',
+    'contact.copyBtnTitle': 'Copy e-mail to clipboard',
+    'contact.copied':  'Copied!',
     'menu.openLabel':   'Open / jump to window',
     'menu.quickLabel':  'Quick access',
     'menu.actionsLabel':'Actions',
     'menu.restoreAll':  'Restore all',
-    'menu.close':       '✕  Close',
+    'menu.close':       'Close',
     'menu.email':       'Write e-mail',
     'menu.menuBtn':     'Menu',
     'menu.w.hero':      'Profile',
-    'menu.w.about':     'About me',
-    'menu.w.svc':       'Practice Areas',
-    'menu.w.skills':    'Skills',
+    'menu.w.about':     'About',
+    'menu.w.svc':       'Services',
+    'menu.w.skills':    'Expertise',
     'menu.w.exp':       'Experience',
-    'menu.w.edu':       'Education & Languages',
+    'menu.w.edu':       'Education',
     'menu.w.proj':      'Projects',
     'menu.w.contact':   'Contact',
-    'menu.q.hero':      'Scroll to Profile',
-    'menu.q.svc':       'Scroll to Practice Areas',
-    'menu.q.contact':   'Scroll to Contact',
+    'menu.q.hero':      'Profile',
+    'menu.q.svc':       'Services',
+    'menu.q.contact':   'Contact',
     'langmenu.title':   'Choose language',
   },
   ru: {
-    'hero.winTitle':   'Мориц Шольц – Профиль – legaltechde',
+    'hero.winTitle':   'Профиль',
     'hero.photoLabel': '',
     'hero.photoSub':   '',
     'hero.country':    'Германия',
-    'hero.badge1':     '⚖ Юрист (1-й госэкзамен)',
-    'hero.badge2':     '💻 Разработчик',
-    'hero.badge3':     '📝 Редактор',
-    'hero.badge4':     '🤖 Prompt Engineer',
+    'hero.badge1':     'Юрист (1-й госэкзамен)',
+    'hero.badge2':     'Разработчик',
+    'hero.badge3':     'Редактор',
+    'hero.badge4':     'Prompt Engineer',
     'hero.status':     'Онлайн · Ответ < 1 часа · Конфиденциально и пунктуально',
-    'about.winTitle':  'Обо мне – Информация',
-    'about.secLabel':  'ОБО МНЕ',
+    'about.winTitle':  'Обо',
+    'about.secLabel':  'ОБО',
     'about.p1':        'Я юрист (1-й государственный экзамен, университет Галле-Виттенберг) и разработчик с более чем тремя годами опыта на стыке права и технологий.',
     'about.p2':        'Мой фокус: точный юридический язык в сочетании с функциональным кодом. Я делаю юридические процессы эффективнее.',
     'about.p3':        'Юридические консультации по германскому RDG не предоставляются.',
-    'svc.winTitle':    'Сферы деятельности – Специализация',
-    'svc.secLabel':    'СФЕРЫ ДЕЯТЕЛЬНОСТИ',
+    'svc.winTitle':    'Услуги',
+    'svc.secLabel':    'УСЛУГИ',
     'svc.items': [
       { title: 'Редактура DE',                          desc: 'Договоры, заключения, научные работы – точные формулировки и юридическая корректность.' },
       { title: 'Бизнес-программное обеспечение',        desc: 'Веб-приложения, автоматизация Python и Excel, конвертеры и отчёты. Соответствует GDPR.' },
@@ -733,11 +969,9 @@ const i18n = {
       { title: 'PDF-исследование и подготовка данных',  desc: 'Анализ 300+ страниц, извлечение данных и наглядное представление результатов.' },
       { title: 'Переводы DE / EN / RU',                 desc: 'Договоры и правовые документы – экспертно на трёх языках.' },
     ],
-    'skills.winTitle': 'Навыки и экспертиза – Свойства',
-    'skills.secLabel': 'НАВЫКИ',
-    'skills.pro':      'PRO',
-    'skills.mid':      'СРД',
-    'exp.winTitle':    'Опыт работы – Карьера',
+    'skills.winTitle': 'Экспертиза',
+    'skills.secLabel': 'ЭКСПЕРТИЗА',
+    'exp.winTitle':    'Опыт',
     'exp.secLabel':    'ОПЫТ',
     'exp.jobTitle':    'Юридическая служба',
     'exp.jobMeta':     'Нояб. 2023 – Настоящее время',
@@ -751,7 +985,7 @@ const i18n = {
       'Самостоятельное чтение и наполнение баз данных, визуализация результатов',
       'Структурирование и сортировка 300+ юридических документов по внутренним требованиям',
     ],
-    'edu.winTitle':     'Образование и языки',
+    'edu.winTitle':     'Образование',
     'edu.secLabel':     'ОБРАЗОВАНИЕ',
     'edu.degree':       '1-й государственный экзамен · Юриспруденция',
     'edu.meta':         'Университет Мартина Лютера Галле-Виттенберг · Германия · Выпуск 2026',
@@ -759,63 +993,66 @@ const i18n = {
     'edu.lang1name':    'Немецкий',   'edu.lang1level': 'Родной',
     'edu.lang2name':    'Английский', 'edu.lang2level': 'Свободно',
     'edu.lang3name':    'Русский',    'edu.lang3level': 'Начинающий',
-    'proj.winTitle':   'Проекты – Мои работы',
+    'proj.winTitle':   'Проекты',
     'proj.secLabel':   'ПРОЕКТЫ',
     'proj.clickHint':  '– запрос по e-mail',
-    'contact.winTitle':'Контакт – Написать',
+    'contact.winTitle':'Контакт',
     'contact.secLabel':'КОНТАКТ',
     'contact.headline':'Готовы работать вместе?',
     'contact.emailLabel':'E-Mail',
     'contact.webLabel':'Веб-сайт',
-    'contact.btn':     '✉️  Написать e-mail',
+    'contact.btn':     'Написать e-mail',
     'contact.note':    'Ответ < 1 часа · Конфиденциально · Пунктуально · Соответствует GDPR',
+    'contact.copyBtnTitle': 'Скопировать e-mail в буфер обмена',
+    'contact.copied':  'Скопировано!',
     'menu.openLabel':   'Открыть / перейти к окну',
     'menu.quickLabel':  'Быстрый доступ',
     'menu.actionsLabel':'Действия',
     'menu.restoreAll':  'Восстановить всё',
-    'menu.close':       '✕  Закрыть',
+    'menu.close':       'Закрыть',
     'menu.email':       'Написать e-mail',
     'menu.menuBtn':     'Меню',
     'menu.w.hero':      'Профиль',
-    'menu.w.about':     'Обо мне',
-    'menu.w.svc':       'Сферы деятельности',
-    'menu.w.skills':    'Навыки',
+    'menu.w.about':     'Обо',
+    'menu.w.svc':       'Услуги',
+    'menu.w.skills':    'Экспертиза',
     'menu.w.exp':       'Опыт',
-    'menu.w.edu':       'Образование и языки',
+    'menu.w.edu':       'Образование',
     'menu.w.proj':      'Проекты',
     'menu.w.contact':   'Контакт',
-    'menu.q.hero':      'К профилю',
-    'menu.q.svc':       'К сферам деятельности',
-    'menu.q.contact':   'К контакту',
+    'menu.q.hero':      'Профиль',
+    'menu.q.svc':       'Услуги',
+    'menu.q.contact':   'Контакт',
     'langmenu.title':   'Выбор языка',
   },
 };
 
-const skillsData = [
-  { name:'Lektorat / Editing',   pct:100, lvl:'pro' },
-  { name:'HTML / HTML5',         pct:100, lvl:'pro' },
-  { name:'Prompt Engineering',   pct:100, lvl:'pro' },
-  { name:'ChatGPT / Claude AI',  pct:100, lvl:'pro' },
-  { name:'PDF Conversion',       pct:100, lvl:'pro' },
-  { name:'PDF to Excel / HTML',  pct:100, lvl:'pro' },
-  { name:'Software Automation',  pct:100, lvl:'pro' },
-  { name:'Custom Software Dev',  pct:100, lvl:'pro' },
-  { name:'Business Copywriting', pct:100, lvl:'pro' },
-  { name:'Video / Explainer',    pct:100, lvl:'pro' },
-  { name:'JavaScript',           pct: 65, lvl:'int' },
-  { name:'Python',               pct: 65, lvl:'int' },
-  { name:'Law / Recht / Право',  pct: 65, lvl:'int' },
-  { name:'Civil Law',            pct: 65, lvl:'int' },
-  { name:'Employment Law',       pct: 65, lvl:'int' },
-  { name:'Contract Law',         pct: 65, lvl:'int' },
-  { name:'Legal Translation',    pct: 65, lvl:'int' },
-  { name:'Legal Transcription',  pct: 65, lvl:'int' },
-];
+/* Skill tree data: "Moritz" in the center, category branches, individual skills as leaves */
+const skillTreeData = {
+  de: [
+    { cat: 'Programmieren', leaves: ['HTML / HTML5','CSS','JavaScript / TypeScript','Python','Software-Automatisierung','Individuelle Softwareentwicklung','Microsoft-Anwendungen'] },
+    { cat: 'KI & Tools', leaves: ['Prompt Engineering','ChatGPT / Claude AI','KI-Workflows / Agentic Workflows','Datenanalyse','PDF-Konvertierung','PDF zu Excel / HTML'] },
+    { cat: 'Recht', leaves: ['Zivilrecht','Arbeitsrecht','Vertragsrecht','Strafrecht','Staatsrecht','Verwaltungsrecht','Rechtsübersetzung','Rechtstranskription'] },
+    { cat: 'Sprache & Content', leaves: ['Lektorat / Editing','Business-Texte','Video- & Erklärformate'] },
+  ],
+  en: [
+    { cat: 'Programming', leaves: ['HTML / HTML5','CSS','JavaScript / TypeScript','Python','Software Automation','Custom Software Development','Microsoft Applications'] },
+    { cat: 'AI & Tools', leaves: ['Prompt Engineering','ChatGPT / Claude AI','AI Workflows / Agentic Workflows','Data Analysis','PDF Conversion','PDF to Excel / HTML'] },
+    { cat: 'Law', leaves: ['Civil Law','Employment Law','Contract Law','Criminal Law','Constitutional Law','Administrative Law','Legal Translation','Legal Transcription'] },
+    { cat: 'Language & Content', leaves: ['Proofreading / Editing','Business Copywriting','Video & Explainer Content'] },
+  ],
+  ru: [
+    { cat: 'Программирование', leaves: ['HTML / HTML5','CSS','JavaScript / TypeScript','Python','Автоматизация ПО','Индивидуальная разработка ПО','Приложения Microsoft'] },
+    { cat: 'ИИ и инструменты', leaves: ['Prompt Engineering','ChatGPT / Claude AI','ИИ-воркфлоу / Agentic Workflows','Анализ данных','Конвертация PDF','PDF в Excel / HTML'] },
+    { cat: 'Право', leaves: ['Гражданское право','Трудовое право','Договорное право','Уголовное право','Государственное право','Административное право','Юридический перевод','Юридическая транскрипция'] },
+    { cat: 'Язык и контент', leaves: ['Редактура / Lektorat','Бизнес-копирайтинг','Видео и обучающий контент'] },
+  ],
+};
 
 const langMeta = {
-  de: { flag:'🇩🇪', code:'DE', locale:'de-DE' },
-  en: { flag:'🇬🇧', code:'EN', locale:'en-GB' },
-  ru: { flag:'🇷🇺', code:'RU', locale:'ru-RU' },
+  de: { flag:`<svg class="flag-svg" viewBox="0 0 12 8" width="16" height="11" aria-hidden="true"><rect width="12" height="2.67" y="0" fill="#000"/><rect width="12" height="2.67" y="2.67" fill="#D00"/><rect width="12" height="2.66" y="5.34" fill="#FFCE00"/></svg>`, code:'DE', locale:'de-DE' },
+  en: { flag:`<svg class="flag-svg" viewBox="0 0 12 8" width="16" height="11" aria-hidden="true"><rect width="12" height="8" fill="#012169"/><path d="M0,0 L12,8 M12,0 L0,8" stroke="#fff" stroke-width="1.6"/><path d="M0,0 L12,8 M12,0 L0,8" stroke="#C8102E" stroke-width="1"/><path d="M6,0 V8 M0,4 H12" stroke="#fff" stroke-width="2.4"/><path d="M6,0 V8 M0,4 H12" stroke="#C8102E" stroke-width="1.4"/></svg>`, code:'EN', locale:'en-GB' },
+  ru: { flag:`<svg class="flag-svg" viewBox="0 0 12 8" width="16" height="11" aria-hidden="true"><rect width="12" height="2.67" y="0" fill="#fff"/><rect width="12" height="2.67" y="2.67" fill="#0039A6"/><rect width="12" height="2.66" y="5.34" fill="#D52B1E"/></svg>`, code:'RU', locale:'ru-RU' },
 };
 let currentLang = 'de';
 
@@ -837,9 +1074,9 @@ function applyLang(lang) {
   localStorage.setItem('ms_lang', lang);
   document.documentElement.lang = lang;
   const meta = langMeta[lang];
-  document.getElementById('lang-flag').textContent   = meta.flag;
+  document.getElementById('lang-flag').innerHTML   = meta.flag;
   document.getElementById('lang-code').textContent   = meta.code;
-  document.getElementById('mob-lang-flag').textContent = meta.flag;
+  document.getElementById('mob-lang-flag').innerHTML = meta.flag;
   document.getElementById('mob-lang-code').textContent = meta.code;
   document.querySelectorAll('.lang-opt').forEach(el => {
     el.classList.toggle('active', el.dataset.lang === lang);
@@ -850,10 +1087,15 @@ function applyLang(lang) {
   });
   renderServices();
   renderExperience();
-  renderSkills();
+  renderSkillTree();
   renderProjects();
   updateAllTbBtns();
   tick();
+  const copyBtn = document.getElementById('email-copy-btn');
+  const emailText = document.getElementById('email-text');
+  const copyTitle = t('contact.copyBtnTitle');
+  if (copyBtn) copyBtn.title = copyTitle;
+  if (emailText) emailText.title = copyTitle;
 }
 function setLang(lang) {
   applyLang(lang);
@@ -879,15 +1121,96 @@ function renderExperience() {
   if (!Array.isArray(items)) return;
   el.innerHTML = items.map(item => `<li>${item}</li>`).join('');
 }
-function renderSkills() {
-  const el = document.getElementById('skills-grid-el');
+function renderSkillTree() {
+  const el = document.getElementById('st-categories');
   if (!el) return;
-  el.innerHTML = skillsData.map(s => `
-    <div class="skill-row">
-      <span class="skill-name">${s.name}</span>
-      <div class="xp-bar-wrap"><div class="xp-bar" style="width:${s.pct}%"></div></div>
-      <span class="skill-level ${s.lvl==='pro'?'lvl-pro':'lvl-int'}">${s.lvl==='pro'?t('skills.pro'):t('skills.mid')}</span>
+  const data = skillTreeData[currentLang] || skillTreeData.de;
+  el.innerHTML = data.map((group, gi) => `
+    <div class="st-category" data-st-idx="${gi}">
+      <div class="st-node st-cat-node" role="button" tabindex="0">
+        <span class="st-cat-label">${group.cat}</span>
+        <span class="st-cat-toggle" aria-hidden="true">+</span>
+      </div>
+      <div class="st-leaf-list">
+        ${group.leaves.map(l => `<div class="st-node st-leaf-node">${l}</div>`).join('')}
+      </div>
     </div>`).join('');
+  // Mobile accordion: toggle on category header click
+  el.querySelectorAll('.st-cat-node').forEach(node => {
+    const toggle = () => {
+      if (window.matchMedia('(max-width: 600px)').matches) {
+        const cat = node.closest('.st-category');
+        const open = cat.classList.toggle('open');
+        const btn = node.querySelector('.st-cat-toggle');
+        if (btn) btn.textContent = open ? '−' : '+';
+      }
+    };
+    node.addEventListener('click', toggle);
+    node.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+  requestAnimationFrame(() => requestAnimationFrame(drawSkillTree));
+}
+function drawSkillTree() {
+  const canvas = document.getElementById('st-canvas');
+  const svg = document.getElementById('st-svg');
+  if (!canvas || !svg) return;
+  if (window.matchMedia('(max-width: 600px)').matches) {
+    svg.innerHTML = '';
+    svg.setAttribute('width', 0);
+    svg.setAttribute('height', 0);
+    return;
+  }
+  const winEl = document.getElementById('skills-win');
+  if (winEl && (winEl.classList.contains('minimized') || winEl.style.display === 'none')) return;
+  const cRect = canvas.getBoundingClientRect();
+  if (cRect.width === 0 || cRect.height === 0) return;
+  svg.setAttribute('width', cRect.width);
+  svg.setAttribute('height', cRect.height);
+  svg.setAttribute('viewBox', `0 0 ${cRect.width} ${cRect.height}`);
+  const rectOf = (elm) => {
+    const r = elm.getBoundingClientRect();
+    return {
+      x: r.left - cRect.left + r.width / 2,
+      top: r.top - cRect.top,
+      bottom: r.bottom - cRect.top,
+    };
+  };
+  let lines = '';
+  document.querySelectorAll('.st-category').forEach(catEl => {
+    const catNode = catEl.querySelector('.st-cat-node');
+    if (!catNode) return;
+    const catR = rectOf(catNode);
+    catEl.querySelectorAll('.st-leaf-node').forEach(leaf => {
+      const leafR = rectOf(leaf);
+      lines += `<line x1="${catR.x}" y1="${catR.bottom}" x2="${leafR.x}" y2="${leafR.top}" class="st-line st-line-sub"/>`;
+    });
+  });
+  svg.innerHTML = lines;
+}
+let stResizeTimer = null;
+window.addEventListener('resize', () => {
+  clearTimeout(stResizeTimer);
+  stResizeTimer = setTimeout(() => {
+    // collapse open accordions when switching to desktop
+    if (!window.matchMedia('(max-width: 600px)').matches) {
+      document.querySelectorAll('.st-category.open').forEach(c => {
+        c.classList.remove('open');
+        const t = c.querySelector('.st-cat-toggle');
+        if (t) t.textContent = '+';
+      });
+    }
+    drawSkillTree();
+  }, 120);
+});
+window.addEventListener('load', () => drawSkillTree());
+if (window.ResizeObserver) {
+  const roInit = () => {
+    const canvas = document.getElementById('st-canvas');
+    if (canvas) new ResizeObserver(() => drawSkillTree()).observe(canvas);
+  };
+  roInit();
 }
 function renderProjects() {
   document.querySelectorAll('.proj-item, .proj-card[data-proj]').forEach(el => {
@@ -934,7 +1257,7 @@ function buildProjCard(item) {
     iconWrap.appendChild(im);
   } else {
     const ph = document.createElement('div');
-    ph.className = 'proj-icon-placeholder'; ph.textContent = '📄';
+    ph.className = 'proj-icon-placeholder'; ph.innerHTML = `<svg class="ico" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>`;
     iconWrap.appendChild(ph);
   }
   const arrow = document.createElement('div');
@@ -955,14 +1278,14 @@ function buildProjCard(item) {
   return card;
 }
 const windows = [
-  { id:'hero-win',    icon:'👤', key:'menu.w.hero'    },
-  { id:'about-win',   icon:'ℹ',  key:'menu.w.about'   },
-  { id:'svc-win',     icon:'☑️', key:'menu.w.svc'     },
-  { id:'skills-win',  icon:'🔧', key:'menu.w.skills'  },
-  { id:'exp-win',     icon:'💼', key:'menu.w.exp'     },
-  { id:'edu-win',     icon:'🎓', key:'menu.w.edu'     },
-  { id:'proj-win',    icon:'📁', key:'menu.w.proj'    },
-  { id:'contact-win', icon:'✉️', key:'menu.w.contact' },
+  { id:'hero-win',    icon:`<svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`, key:'menu.w.hero'    },
+  { id:'about-win',   icon:`<svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>`,  key:'menu.w.about'   },
+  { id:'svc-win',     icon:`<svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14l4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/><circle cx="12" cy="14" r="1.5" fill="currentColor" stroke="none"/></svg>`, key:'menu.w.svc'     },
+  { id:'skills-win',  icon:`<svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>`, key:'menu.w.skills'  },
+  { id:'exp-win',     icon:`<svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`, key:'menu.w.exp'     },
+  { id:'edu-win',     icon:`<svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>`, key:'menu.w.edu'     },
+  { id:'proj-win',    icon:`<svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>`, key:'menu.w.proj'    },
+  { id:'contact-win', icon:`<svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`, key:'menu.w.contact' },
 ];
 const tbWins = document.getElementById('tb-windows');
 windows.forEach(w => {
@@ -982,9 +1305,21 @@ function updateTbBtn(id) {
   const btn = document.getElementById('tb-' + id);
   if (btn && el) btn.classList.toggle('closed', el.style.display === 'none' || el.classList.contains('minimized'));
 }
-function toggleWin(id) {
-  document.getElementById(id).classList.toggle('minimized');
+/* Minimize: shrink window down to just the title bar.
+   Maximize: restore the window back to full size.
+   These used to be combined in a single toggle button; now split across the two buttons. */
+function minimizeWin(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.add('minimized');
   updateTbBtn(id);
+}
+function maximizeWin(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.remove('minimized');
+  updateTbBtn(id);
+  if (id === 'skills-win') requestAnimationFrame(() => requestAnimationFrame(drawSkillTree));
 }
 function jumpTo(id) {
   const el = document.getElementById(id);
@@ -993,7 +1328,10 @@ function jumpTo(id) {
   el.classList.remove('minimized');
   updateTbBtn(id);
   closeStartMenu(); closeMobileMenu();
-  setTimeout(() => el.scrollIntoView({ behavior:'smooth', block:'start' }), 80);
+  setTimeout(() => {
+    el.scrollIntoView({ behavior:'smooth', block:'start' });
+    if (id === 'skills-win') drawSkillTree();
+  }, 80);
 }
 function restoreAll() {
   windows.forEach(w => {
@@ -1003,6 +1341,7 @@ function restoreAll() {
   });
   closeStartMenu(); closeMobileMenu();
   window.scrollTo({ top:0, behavior:'smooth' });
+  requestAnimationFrame(() => requestAnimationFrame(drawSkillTree));
 }
 document.querySelectorAll('.wb-close').forEach(btn => {
   btn.addEventListener('click', function() {
@@ -1039,6 +1378,48 @@ document.addEventListener('click', e => {
     }
   });
 });
+
+/* Copy e-mail address to clipboard, with a small visual confirmation */
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand('copy'); } catch (e) {}
+  document.body.removeChild(ta);
+}
+function showCopyFeedback() {
+  const btn = document.getElementById('email-copy-btn');
+  const toast = document.getElementById('email-copy-toast');
+  if (btn) {
+    btn.classList.add('copied');
+    const iconCopy = btn.querySelector('.clip-icon-copy');
+    const iconCheck = btn.querySelector('.clip-icon-check');
+    if (iconCopy) iconCopy.style.display = 'none';
+    if (iconCheck) iconCheck.style.display = 'inline-flex';
+  }
+  if (toast) { toast.textContent = t('contact.copied'); toast.classList.add('show'); }
+  clearTimeout(window._emailCopyTimeout);
+  window._emailCopyTimeout = setTimeout(() => {
+    if (btn) {
+      btn.classList.remove('copied');
+      const iconCopy = btn.querySelector('.clip-icon-copy');
+      const iconCheck = btn.querySelector('.clip-icon-check');
+      if (iconCopy) iconCopy.style.display = 'inline-flex';
+      if (iconCheck) iconCheck.style.display = 'none';
+    }
+    if (toast) toast.classList.remove('show');
+  }, 1800);
+}
+function copyEmail() {
+  const email = 'legaltechde@mail.de';
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(email).then(showCopyFeedback).catch(() => {
+      fallbackCopy(email); showCopyFeedback();
+    });
+  } else {
+    fallbackCopy(email); showCopyFeedback();
+  }
+}
 applyLang(detectLang());
 </script>
 </body>
