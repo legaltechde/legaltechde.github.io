@@ -94,7 +94,17 @@ body {
 #start-menu.open { display: flex; }
 #sm-header { background: linear-gradient(to right, #0054E3 0%, #2882E4 60%, #003C9B 100%); padding: 8px 12px; display: flex; align-items: center; gap: 10px; border-radius: 6px 6px 0 0; }
 #sm-avatar { width: 40px; height: 40px; background: #d4d0c8; border: 2px solid #fff; border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 22px; overflow:hidden; }
-#sm-avatar img{ width:100%; height:100%; object-fit:cover; }
+#sm-avatar img{
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  border: none;
+}
+#sm-avatar .ico {
+  width: 22px; height: 22px;
+  color: #fff;
+  stroke: #fff;
+}
 #sm-username { color:#fff; font-weight:bold; font-size:14px; text-shadow:1px 1px 2px rgba(0,0,0,0.6); }
 #sm-body { display: flex; flex: 1; min-height: 0; }
 #sm-left { flex: 1; padding: 8px 0; border-right: 1px solid #c0c0c0; display: flex; flex-direction: column; }
@@ -343,7 +353,17 @@ body {
 #mob-drawer.open { transform: translateX(0); }
 #mob-header { background: linear-gradient(to right, #0054E3 0%, #2882E4 60%, #003C9B 100%); padding: 12px 10px; display: flex; align-items: center; gap: 10px; }
 #mob-avatar { width: 44px; height: 44px; background: #d4d0c8; border: 2px solid #fff; border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; overflow:hidden; }
-#mob-avatar img{ width:100%; height:100%; object-fit:cover; }
+#mob-avatar img{
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  border: none;
+}
+#mob-avatar .ico {
+  width: 24px; height: 24px;
+  color: #fff;
+  stroke: #fff;
+}
 #mob-name { color:#fff; font-weight:bold; font-size:14px; text-shadow:1px 1px 2px rgba(0,0,0,0.6); }
 #mob-handle { color:rgba(255,255,255,0.75); font-size:11px; font-family:"Courier New",monospace; }
 #mob-x { margin-left: auto; background: linear-gradient(to bottom,#f0a0a0,#e05050 45%,#c31c1c 55%,#a01010); border: 1px solid rgba(0,0,0,0.4); color: #fff; width: 26px; height: 26px; border-radius: 2px; font-size: 13px; font-weight: bold; cursor: pointer; flex-shrink: 0; }
@@ -691,7 +711,7 @@ body {
 
 <!-- DESKTOP START MENU -->
 <div id="start-menu">
-  <div id="sm-header"><div id="sm-avatar"><img id="sm-avatar-img" src="pb.jpg" alt="" onerror="this.style.display='none'; this.parentElement.innerHTML='<svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';"> </div><div id="sm-username">Moritz Scholz</div></div>
+  <div id="sm-header"><div id="sm-avatar"><img id="sm-avatar-img" src="pb.webp" srcset="pb.webp 1x, pb.jpg 1x" alt="Moritz Scholz" width="40" height="40" onerror="avatarFallback(this)"></div><div id="sm-username">Moritz Scholz</div></div>
   <div id="sm-body">
     <div id="sm-left">
       <div class="sm-label" data-i18n="menu.openLabel"></div>
@@ -740,7 +760,7 @@ body {
 <div id="mob-overlay" onclick="closeMobileMenu()"></div>
 <div id="mob-drawer">
   <div id="mob-header">
-    <div id="mob-avatar"><img src="pb.jpg" alt="" onerror="this.style.display='none'; this.parentElement.innerHTML='<svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div id="mob-avatar"><img src="pb.webp" srcset="pb.webp 1x, pb.jpg 1x" alt="Moritz Scholz" width="44" height="44" onerror="avatarFallback(this)"></div>
     <div><div id="mob-name">Moritz Scholz</div><div id="mob-handle">@legaltechde</div></div>
     <button id="mob-x" onclick="closeMobileMenu()">✕</button>
   </div>
@@ -1420,6 +1440,21 @@ function copyEmail() {
     fallbackCopy(email); showCopyFeedback();
   }
 }
+
+function avatarFallback(img) {
+  if (!img.dataset.triedJpg) {
+    img.dataset.triedJpg = '1';
+    img.src = 'pb.jpg';
+    return;
+  }
+  const parent = img.parentElement;
+  if (!parent) return;
+  img.remove();
+  parent.insertAdjacentHTML('beforeend',
+    '<svg class="ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>'
+  );
+}
+
 applyLang(detectLang());
 </script>
 </body>
